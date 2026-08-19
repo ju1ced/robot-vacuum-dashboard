@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0
+
+- Redesign the overview around a dominant app-style live map.
+- Add a floating live session card, compact mode navigation and a central round cleaning control.
+- Improve responsive behavior for mobile dashboards.
+
+## 0.2.1
+
+- Refresh the embedded vacuum map whenever the Home Assistant image entity updates, so the robot position remains live in the overview.
+
 ## 0.2.0
 
 - Add multi-room cleaning through Home Assistant `vacuum.clean_area`.
