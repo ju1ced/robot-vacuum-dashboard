@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.2
+
+- Use one stable live-map composition instead of switching opacity with the vacuum state.
+- Preserve the map image element across Home Assistant updates to prevent flashing and needless image reloads.
+
 ## 0.5.1
 
 - Keep the original Ecovacs live path, robot marker and charging station visible below the room overlay.

@@ -14,6 +14,7 @@ const required = [
   "map_geometry",
   "room-overlay",
   "data-map-area-id",
+  "existingMapImage",
 ];
 
 const missing = required.filter((token) => !source.includes(token));
