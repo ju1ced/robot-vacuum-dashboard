@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- Discover the companion geometry sensor by its schema when Home Assistant assigns the generic `sensor.map_geometry` entity ID.
+
 ## 0.4.0
 
 - Add optional interactive room polygons, labels and direct room selection on the live map.
