@@ -11,6 +11,9 @@ const required = [
   '"clean_area"',
   '"custom_area"',
   "cleaning_area_id",
+  "map_geometry",
+  "room-overlay",
+  "data-map-area-id",
 ];
 
 const missing = required.filter((token) => !source.includes(token));
