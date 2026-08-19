@@ -1,4 +1,4 @@
-const ROBOT_VACUUM_DASHBOARD_VERSION = "0.4.0";
+const ROBOT_VACUUM_DASHBOARD_VERSION = "0.4.1";
 
 const RVD_LABELS = {
   cleaning: "Aan het schoonmaken",
@@ -118,7 +118,13 @@ class RobotVacuumDashboardCard extends HTMLElement {
     if (configured && this._hass.states[configured]) return configured;
     const rule = RVD_ENTITY_RULES[key];
     if (!rule) return configured;
-    const candidates = this._relatedStates().filter(([id]) => rule.domains.includes(id.split(".")[0]));
+    const relatedCandidates = this._relatedStates().filter(([id]) => rule.domains.includes(id.split(".")[0]));
+    const geometryCandidates = key === "map_geometry"
+      ? Object.entries(this._hass.states).filter(([id, state]) =>
+        id.startsWith("sensor.") && state.attributes?.schema_version === 1 && Array.isArray(state.attributes?.rooms)
+      )
+      : [];
+    const candidates = [...relatedCandidates, ...geometryCandidates.filter(([id]) => !relatedCandidates.some(([relatedId]) => relatedId === id))];
     let best = null;
     let bestScore = 0;
     for (const [id, state] of candidates) {
