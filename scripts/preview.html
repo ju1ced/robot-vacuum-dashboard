@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Robot Vacuum Dashboard preview</title>
+  <style>
+    :root { --primary-color:#138d88; --primary-text-color:#17212b; --secondary-text-color:#68747f; --card-background-color:#fff; --divider-color:#e1e6e8; }
+    body { margin:0; padding:32px; background:#edf2f3; font-family:system-ui,sans-serif; }
+    robot-vacuum-dashboard-card { max-width:1100px; margin:auto; }
+    ha-icon { display:inline-grid; place-items:center; width:24px; height:24px; }
+    ha-icon::before { content:"●"; }
+    @media(max-width:600px) { body { padding:0; } }
+  </style>
+</head>
+<body>
+  <robot-vacuum-dashboard-card></robot-vacuum-dashboard-card>
+  <script src="../robot-vacuum-dashboard.js"></script>
+  <script>
+    const state = (entity_id, value, attributes = {}) => ({ entity_id, state:String(value), attributes });
+    const states = {
+      "vacuum.deebot_n8_plus": state("vacuum.deebot_n8_plus", "docked", { friendly_name:"DEEBOT N8+", battery_level:84, fan_speed:"normal", fan_speed_list:["quiet","normal","max","max+"] , component_brush:72, component_side_brush:41, component_filter:18 }),
+      "image.deebot_n8_plus_map": state("image.deebot_n8_plus_map", "2026-08-19T10:00:00Z", { friendly_name:"DEEBOT N8+ Map" }),
+      "binary_sensor.deebot_n8_plus_mop_attached": state("binary_sensor.deebot_n8_plus_mop_attached", "on", { friendly_name:"Mop attached" }),
+      "sensor.deebot_n8_plus_cleaning_cycle_area": state("sensor.deebot_n8_plus_cleaning_cycle_area", 47.3, { friendly_name:"Cleaning cycle area", unit_of_measurement:"m²" }),
+      "sensor.deebot_n8_plus_cleaning_cycle_time": state("sensor.deebot_n8_plus_cleaning_cycle_time", 56, { friendly_name:"Cleaning cycle time", unit_of_measurement:"min" }),
+      "sensor.deebot_n8_plus_total_statistics_cleanings": state("sensor.deebot_n8_plus_total_statistics_cleanings", 286, { friendly_name:"Total cleanings" }),
+      "sensor.deebot_n8_plus_total_statistics_area": state("sensor.deebot_n8_plus_total_statistics_area", 9347, { friendly_name:"Total area", unit_of_measurement:"m²" }),
+      "sensor.deebot_n8_plus_total_statistics_time": state("sensor.deebot_n8_plus_total_statistics_time", 11240, { friendly_name:"Total time", unit_of_measurement:"min" }),
+      "select.deebot_n8_plus_water_level": state("select.deebot_n8_plus_water_level", "medium", { friendly_name:"Water level", options:["low","medium","high","ultrahigh"] }),
+      "select.deebot_n8_plus_work_mode": state("select.deebot_n8_plus_work_mode", "vacuum_and_mop", { friendly_name:"Work mode", options:["vacuum","vacuum_and_mop"] }),
+      "switch.deebot_n8_plus_continuous_cleaning": state("switch.deebot_n8_plus_continuous_cleaning", "on", { friendly_name:"Continuous cleaning" }),
+      "switch.deebot_n8_plus_carpet_auto_fan_speed_boost": state("switch.deebot_n8_plus_carpet_auto_fan_speed_boost", "on", { friendly_name:"Carpet boost" }),
+      "switch.deebot_n8_plus_advanced_mode": state("switch.deebot_n8_plus_advanced_mode", "off", { friendly_name:"Advanced mode" }),
+      "sensor.deebot_n8_plus_error": state("sensor.deebot_n8_plus_error", "0", { friendly_name:"Error" }),
+    };
+    const card = document.querySelector("robot-vacuum-dashboard-card");
+    card.setConfig({ entity:"vacuum.deebot_n8_plus", name:"DEEBOT N8+" });
+    card.hass = { states, hassUrl:(url)=>url, callService:async (...args)=>console.log("service", ...args) };
+  </script>
+</body>
+</html>

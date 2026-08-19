@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: node --check robot-vacuum-dashboard.js
+      - name: Check card and HACS contracts
+        run: node scripts/check-card.js
+      - name: Validate HACS repository
+        uses: hacs/action@main
+        with:
+          category: plugin

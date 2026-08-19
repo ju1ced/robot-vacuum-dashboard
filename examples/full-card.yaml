@@ -1,0 +1,18 @@
+type: custom:robot-vacuum-dashboard-card
+entity: vacuum.deebot_n8_plus
+name: DEEBOT N8+
+confirm_actions: true
+show_map: true
+show_details: true
+entities:
+  map: image.deebot_n8_plus_map
+  mop_attached: binary_sensor.deebot_n8_plus_mop_attached
+  cleaning_area: sensor.deebot_n8_plus_cleaning_cycle_area
+  cleaning_time: sensor.deebot_n8_plus_cleaning_cycle_time
+  total_area: sensor.deebot_n8_plus_total_statistics_area
+  total_time: sensor.deebot_n8_plus_total_statistics_time
+  total_cleanings: sensor.deebot_n8_plus_total_statistics_cleanings
+  water_level: select.deebot_n8_plus_water_level
+  work_mode: select.deebot_n8_plus_work_mode
+  clean_count: number.deebot_n8_plus_clean_count
+  error: sensor.deebot_n8_plus_error
