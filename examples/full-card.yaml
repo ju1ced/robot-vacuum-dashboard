@@ -4,6 +4,18 @@ name: DEEBOT N8+
 confirm_actions: true
 show_map: true
 show_details: true
+cleaning_areas:
+  - name: Keuken
+    id: kitchen
+    icon: mdi:silverware-fork-knife
+  - name: Woonkamer
+    id: living_room
+    icon: mdi:sofa
+cleaning_regions:
+  - name: Onder eettafel
+    coordinates: -1339,-1511,296,-2587
+    icon: mdi:table-furniture
+region_command: custom_area
 entities:
   map: image.deebot_n8_plus_map
   mop_attached: binary_sensor.deebot_n8_plus_mop_attached

@@ -4,7 +4,7 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 
 ![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.2%2B-41BDF5.svg)
-![Version](https://img.shields.io/badge/version-0.1.1-138d88.svg)
+![Version](https://img.shields.io/badge/version-0.2.0-138d88.svg)
 
 ![Robot Vacuum Dashboard overview](docs/images/dashboard-overview.png)
 
@@ -16,6 +16,8 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 - Accu, status, fouten, laatste beurt en totalen
 - Filter-, hoofd- en zijborstelonderhoud
 - Zuigkracht, werkmodus en waterniveau
+- Eén of meerdere gekoppelde Home Assistant-ruimtes reinigen
+- Opgeslagen vrije Ecovacs-zones reinigen via coördinaten
 - Ondersteunde Ecovacs-schakelaars, zoals tapijtboost en doorlopend reinigen
 - Automatische herkenning van bijbehorende entiteiten
 - Handmatige overrides via de ingebouwde visuele editor
@@ -114,7 +116,28 @@ Welke entiteiten beschikbaar zijn, hangt af van het model. Open **Instellingen �
 
 ## Ruimtes reinigen
 
-Home Assistant ondersteunt op geschikte modellen `vacuum.clean_area`. Koppel eerst de segmenten via de instellingen van de vacuümentiteit onder **Vacuümsegmenten aan ruimtes koppelen**. Ruimteknoppen worden in een volgende kaartversie toegevoegd; de standaard Home Assistant-actie kan nu al naast deze kaart worden gebruikt.
+Home Assistant ondersteunt op geschikte modellen `vacuum.clean_area`. Koppel eerst de Ecovacs-segmenten via de instellingen van de vacuümentiteit onder **Vacuümsegmenten aan ruimtes koppelen**. Voeg daarna in de kaarteditor regels toe met `Naam | area-ID | icoon`:
+
+```text
+Keuken|kitchen|mdi:silverware-fork-knife
+Woonkamer|living_room|mdi:sofa
+Hal|hallway|mdi:coat-rack
+```
+
+De kaart laat één of meerdere kamers selecteren en verstuurt ze samen via `cleaning_area_id` naar de officiële Home Assistant-actie.
+
+## Opgeslagen vrije zones
+
+Vrije zones gebruiken Ecovacs-kaartcoördinaten. Voeg ze in de editor toe als `Naam | x1,y1,x2,y2 | icoon`:
+
+```text
+Onder eettafel|-1339,-1511,296,-2587|mdi:table-furniture
+Rond de bank|250,600,1450,-400|mdi:sofa
+```
+
+De kaart gebruikt standaard het Ecovacs-commando `custom_area`. Dit is een reverse-engineered, modelspecifieke functie. Test elke zone eerst terwijl je bij de robot bent. Als jouw integratie of model een ander commando verwacht, kun je `region_command` aanpassen.
+
+De integratie levert de kaart als een afgewerkte `image.*`- of `camera.*`-entiteit. De kaart plaatst deze op een Ecovacs-achtige rasterachtergrond met zwevende sessiestatistieken, maar kan de kleuren en kamercontouren in de bronafbeelding niet betrouwbaar herschrijven.
 
 ## Problemen oplossen
 

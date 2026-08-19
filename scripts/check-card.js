@@ -8,6 +8,9 @@ const required = [
   "getConfigElement",
   "getStubConfig",
   "window.customCards",
+  '"clean_area"',
+  '"custom_area"',
+  "cleaning_area_id",
 ];
 
 const missing = required.filter((token) => !source.includes(token));

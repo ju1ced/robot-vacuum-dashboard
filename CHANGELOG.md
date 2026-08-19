@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0
+
+- Add multi-room cleaning through Home Assistant `vacuum.clean_area`.
+- Add configurable saved Ecovacs custom regions.
+- Restyle the map panel after the Ecovacs app with a grid, session card and cleaning modes.
+- Extend the visual editor for rooms, region coordinates and the Ecovacs command.
+
 ## 0.1.1
 
 - Add the required dashboard preview for HACS validation.
