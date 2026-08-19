@@ -4,7 +4,7 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 
 ![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.2%2B-41BDF5.svg)
-![Version](https://img.shields.io/badge/version-0.5.3-138d88.svg)
+![Version](https://img.shields.io/badge/version-0.6.0-138d88.svg)
 
 ![Robot Vacuum Dashboard overview](docs/images/dashboard-overview.png)
 
@@ -12,7 +12,7 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 
 - Eén kaart met overzicht, alle data en instellingen
 - Starten, pauzeren, stoppen, terugsturen en lokaliseren
-- Live kaart via een `image.*`- of `camera.*`-entiteit
+- Live kaart via een `image.*`- of `camera.*`-entiteit, met native Ecovacs SVG-rendering
 - Optionele gekleurde, gelabelde en rechtstreeks selecteerbare Ecovacs-kamers
 - Accu, status, fouten, laatste beurt en totalen
 - Filter-, hoofd- en zijborstelonderhoud
@@ -76,10 +76,16 @@ De officiële Ecovacs-integratie ontvangt kamercoördinaten van `deebot-client`,
 
 Met die sensor kan de kaart:
 
-- iedere kamer afzonderlijk inkleuren;
+- iedere kamer afzonderlijk en helder inkleuren, onder het native live pad;
 - kamernamen boven de live kaart plaatsen;
 - een kamer rechtstreeks op de kaart selecteren;
 - de geselecteerde Home Assistant-ruimte via `vacuum.clean_area` reinigen.
+
+Standaard haalt de kaart de SVG van de officiële Ecovacs image-entity op, verwijdert
+onveilige inhoud en voegt de kamervlakken vóór het native schoonmaakpad, de robot
+en het laadstation in. Als een model geen bruikbare SVG levert, valt de kaart
+automatisch terug op de gewone afbeelding. Zet desgewenst expliciet
+`map_render_mode: image` om altijd de compatibele afbeeldingsweergave te gebruiken.
 
 Installeer de companion via HACS als aangepaste **Integratie** uit
 [`ju1ced/ecovacs-map-data`](https://github.com/ju1ced/ecovacs-map-data). Herstart
@@ -98,6 +104,7 @@ name: DEEBOT N8+
 confirm_actions: true
 show_map: true
 show_details: true
+map_render_mode: native_svg
 entities:
   map: image.deebot_n8_plus_map
   map_geometry: sensor.deebot_n8_plus_map_geometry
@@ -127,6 +134,7 @@ Alle mappings zijn optioneel. Onderhoudswaarden vallen automatisch terug op de `
 | `confirm_actions` | `true` | Vraagt bevestiging voor starten, stoppen en terugsturen |
 | `show_map` | `true` | Toont of verbergt het kaartpaneel |
 | `show_details` | `true` | Toont totalen en onderhoud |
+| `map_render_mode` | `native_svg` | Gebruikt de gelaagde SVG-renderer; `image` forceert de compatibele fallback |
 | `entities` | `{}` | Optionele handmatige entiteitstoewijzingen |
 
 ## Ecovacs-entiteiten activeren
@@ -156,7 +164,7 @@ Rond de bank|250,600,1450,-400|mdi:sofa
 
 De kaart gebruikt standaard het Ecovacs-commando `custom_area`. Dit is een reverse-engineered, modelspecifieke functie. Test elke zone eerst terwijl je bij de robot bent. Als jouw integratie of model een ander commando verwacht, kun je `region_command` aanpassen.
 
-Zonder de optionele companion-integratie gebruikt de kaart de afgewerkte `image.*`- of `camera.*`-entiteit. Met Ecovacs Map Data worden de originele Ecovacs-subsetcoördinaten als SVG-lagen boven de kaart geplaatst.
+Zonder de optionele companion-integratie gebruikt de kaart de afgewerkte `image.*`- of `camera.*`-entiteit. Met Ecovacs Map Data worden de originele segmentcoördinaten in dezelfde native SVG geplaatst: kamerkleuren onder het live pad en transparante klikzones plus Home Assistant-labels erboven.
 
 ## Problemen oplossen
 

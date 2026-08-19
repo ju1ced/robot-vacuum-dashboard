@@ -20,7 +20,7 @@
     const state = (entity_id, value, attributes = {}) => ({ entity_id, state:String(value), attributes });
     const states = {
       "vacuum.deebot_n8_plus": state("vacuum.deebot_n8_plus", "docked", { friendly_name:"DEEBOT N8+", battery_level:84, fan_speed:"normal", fan_speed_list:["quiet","normal","max","max+"] , component_brush:72, component_side_brush:41, component_filter:18, rooms:{kitchen:1,living_room:2,hallway:3} }),
-      "image.deebot_n8_plus_map": state("image.deebot_n8_plus_map", "2026-08-19T10:00:00Z", { friendly_name:"DEEBOT N8+ Map", entity_picture:"/scripts/mock-map.svg" }),
+      "image.deebot_n8_plus_map": state("image.deebot_n8_plus_map", "2026-08-19T10:02:00Z", { friendly_name:"DEEBOT N8+ Map", entity_picture:"/scripts/mock-map.svg?v=2" }),
       "sensor.map_geometry": state("sensor.map_geometry", 3, { friendly_name:"Map geometry", schema_version:1, rotation:0, rooms:[
         {id:1,name:"Kitchen",coordinates:[[1750,-5250],[13000,-5250],[15750,-9000],[15750,-12750],[1750,-12750]]},
         {id:2,name:"Living room",coordinates:[[15750,-6000],[22500,-6000],[26250,-9500],[26250,-16750],[19500,-16750],[19500,-10250],[15750,-10250]]},
@@ -40,7 +40,8 @@
       "sensor.deebot_n8_plus_error": state("sensor.deebot_n8_plus_error", "0", { friendly_name:"Error" }),
     };
     const card = document.querySelector("robot-vacuum-dashboard-card");
-    card.setConfig({ entity:"vacuum.deebot_n8_plus", name:"DEEBOT N8+", cleaning_areas:[{name:"Keuken",id:"kitchen",icon:"mdi:silverware-fork-knife"},{name:"Woonkamer",id:"living_room",icon:"mdi:sofa"},{name:"Hal",id:"hallway",icon:"mdi:coat-rack"}], cleaning_regions:[{name:"Onder eettafel",coordinates:"-1339,-1511,296,-2587",icon:"mdi:table-furniture"}] });
+    const renderer = new URLSearchParams(location.search).get("renderer") === "image" ? "image" : "native_svg";
+    card.setConfig({ entity:"vacuum.deebot_n8_plus", name:"DEEBOT N8+", map_render_mode:renderer, cleaning_areas:[{name:"Keuken",id:"kitchen",icon:"mdi:silverware-fork-knife"},{name:"Woonkamer",id:"living_room",icon:"mdi:sofa"},{name:"Hal",id:"hallway",icon:"mdi:coat-rack"}], cleaning_regions:[{name:"Onder eettafel",coordinates:"-1339,-1511,296,-2587",icon:"mdi:table-furniture"}] });
     card.hass = { states, areas:{kitchen:{area_id:"kitchen",name:"Keuken"},living_room:{area_id:"living_room",name:"Woonkamer"},hallway:{area_id:"hallway",name:"Inkomhal"}}, hassUrl:(url)=>url, callService:async (...args)=>console.log("service", JSON.stringify(args)) };
   </script>
 </body>

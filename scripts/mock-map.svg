@@ -1,4 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 390" role="img" aria-label="Example vacuum map">
+  <defs>
+    <g id="c"><rect x="-10" y="-8" width="20" height="16" rx="3" fill="#58c51b"/><path d="m2-5-7 8h5l-2 6 8-9H1z" fill="#fff"/></g>
+    <g id="d"><circle r="13" fill="#1976d2" stroke="#fff" stroke-width="3"/><circle r="4" fill="#fff"/></g>
+  </defs>
   <g stroke="#4d9bd4" stroke-width="5" stroke-linejoin="round">
     <path fill="#d8c79b" d="M35 105h225v75h55v75H35z"/>
     <path fill="#debdb6" d="M315 120h135v70h75v145H390V205h-75z"/>
@@ -11,4 +15,7 @@
     <text x="455" y="285">🍴</text><text x="610" y="290">🛋</text><text x="680" y="225">🚪</text>
   </g>
   <g transform="translate(462 92)"><path fill="#58c51b" d="M0 0h32v42H0z" rx="5"/><path fill="white" d="m19 5-10 17h8l-4 15 11-19h-8z"/></g>
+  <path d="M478 112 C500 130 520 150 545 170 S590 205 620 235" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <use href="#c" x="478" y="112"/>
+  <use href="#d" x="620" y="235"/>
 </svg>
