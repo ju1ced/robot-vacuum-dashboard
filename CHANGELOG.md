@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.3
+
+- Preload each new Ecovacs map frame off-screen and swap it in only after it has loaded.
+- Keep the previous live frame visible while the next frame is loading or when a frame fails.
+
 ## 0.5.2
 
 - Use one stable live-map composition instead of switching opacity with the vacuum state.

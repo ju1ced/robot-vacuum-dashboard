@@ -15,6 +15,7 @@ const required = [
   "room-overlay",
   "data-map-area-id",
   "existingMapImage",
+  "_preloadMapSource",
 ];
 
 const missing = required.filter((token) => !source.includes(token));

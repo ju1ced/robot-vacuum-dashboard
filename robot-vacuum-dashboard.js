@@ -1,4 +1,4 @@
-const ROBOT_VACUUM_DASHBOARD_VERSION = "0.5.2";
+const ROBOT_VACUUM_DASHBOARD_VERSION = "0.5.3";
 
 const RVD_LABELS = {
   cleaning: "Aan het schoonmaken",
@@ -50,6 +50,7 @@ class RobotVacuumDashboardCard extends HTMLElement {
     this._renderQueued = false;
     this._mapMetadata = null;
     this._mapMetadataLoading = null;
+    this._pendingMapSource = null;
   }
 
   setConfig(config) {
@@ -274,9 +275,27 @@ class RobotVacuumDashboardCard extends HTMLElement {
     if (existingMapImage && nextMapImage) {
       const nextSource = nextMapImage.getAttribute("src");
       nextMapImage.replaceWith(existingMapImage);
-      if (nextSource && existingMapImage.getAttribute("src") !== nextSource) existingMapImage.setAttribute("src", nextSource);
+      if (nextSource && existingMapImage.getAttribute("src") !== nextSource) this._preloadMapSource(nextSource);
     }
     this._bindEvents();
+  }
+
+  _preloadMapSource(source) {
+    if (!source || this._pendingMapSource === source) return;
+    this._pendingMapSource = source;
+    const preload = new Image();
+    preload.className = "map";
+    preload.alt = "Kaart van de schoonmaakzone";
+    preload.addEventListener("load", () => {
+      if (this._pendingMapSource !== source) return;
+      const visibleMap = this.shadowRoot.querySelector(".map-visual .map");
+      if (visibleMap) visibleMap.replaceWith(preload);
+      this._pendingMapSource = null;
+    }, { once: true });
+    preload.addEventListener("error", () => {
+      if (this._pendingMapSource === source) this._pendingMapSource = null;
+    }, { once: true });
+    preload.src = source;
   }
 
   _header(vacuum) {
