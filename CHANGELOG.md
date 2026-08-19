@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.1
+
+- Keep the original Ecovacs live path, robot marker and charging station visible below the room overlay.
+- Automatically reduce room-fill opacity while the vacuum is cleaning so live movement remains dominant.
+
 ## 0.5.0
 
 - Constrain the card to a readable width on ultrawide Home Assistant dashboards.
