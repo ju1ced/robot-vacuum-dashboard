@@ -41,7 +41,7 @@
     };
     const card = document.querySelector("robot-vacuum-dashboard-card");
     card.setConfig({ entity:"vacuum.deebot_n8_plus", name:"DEEBOT N8+", cleaning_areas:[{name:"Keuken",id:"kitchen",icon:"mdi:silverware-fork-knife"},{name:"Woonkamer",id:"living_room",icon:"mdi:sofa"},{name:"Hal",id:"hallway",icon:"mdi:coat-rack"}], cleaning_regions:[{name:"Onder eettafel",coordinates:"-1339,-1511,296,-2587",icon:"mdi:table-furniture"}] });
-    card.hass = { states, hassUrl:(url)=>url, callService:async (...args)=>console.log("service", JSON.stringify(args)) };
+    card.hass = { states, areas:{kitchen:{area_id:"kitchen",name:"Keuken"},living_room:{area_id:"living_room",name:"Woonkamer"},hallway:{area_id:"hallway",name:"Inkomhal"}}, hassUrl:(url)=>url, callService:async (...args)=>console.log("service", JSON.stringify(args)) };
   </script>
 </body>
 </html>

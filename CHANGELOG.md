@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2
+
+- Prefer Home Assistant area-registry names for room labels and area controls.
+- Reduce visual map noise with a muted source image, cleaner room fills and lighter labels.
+
 ## 0.4.1
 
 - Discover the companion geometry sensor by its schema when Home Assistant assigns the generic `sensor.map_geometry` entity ID.
