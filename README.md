@@ -4,7 +4,7 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 
 ![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.2%2B-41BDF5.svg)
-![Version](https://img.shields.io/badge/version-0.2.0-138d88.svg)
+![Version](https://img.shields.io/badge/version-0.4.0-138d88.svg)
 
 ![Robot Vacuum Dashboard overview](docs/images/dashboard-overview.png)
 
@@ -13,6 +13,7 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 - Eén kaart met overzicht, alle data en instellingen
 - Starten, pauzeren, stoppen, terugsturen en lokaliseren
 - Live kaart via een `image.*`- of `camera.*`-entiteit
+- Optionele gekleurde, gelabelde en rechtstreeks selecteerbare Ecovacs-kamers
 - Accu, status, fouten, laatste beurt en totalen
 - Filter-, hoofd- en zijborstelonderhoud
 - Zuigkracht, werkmodus en waterniveau
@@ -69,6 +70,23 @@ name: DEEBOT N8+
 
 De kaart zoekt automatisch naar entiteiten waarvan de object-id of zichtbare naam overeenkomt met de gekozen robot. Controleer na de eerste keer openen of de kaart, statistieken en instellingen correct zijn herkend.
 
+## Interactieve Ecovacs-kaart
+
+De officiële Ecovacs-integratie ontvangt kamercoördinaten van `deebot-client`, maar publiceert die momenteel niet als Home Assistant-attributen. De optionele companion-integratie **Ecovacs Map Data** maakt die lokale eventgegevens beschikbaar als `sensor.*_map_geometry`.
+
+Met die sensor kan de kaart:
+
+- iedere kamer afzonderlijk inkleuren;
+- kamernamen boven de live kaart plaatsen;
+- een kamer rechtstreeks op de kaart selecteren;
+- de geselecteerde Home Assistant-ruimte via `vacuum.clean_area` reinigen.
+
+Installeer de companion via HACS als aangepaste **Integratie** uit
+[`ju1ced/ecovacs-map-data`](https://github.com/ju1ced/ecovacs-map-data). Herstart
+Home Assistant en voeg daarna **Ecovacs Map Data** toe via **Instellingen →
+Apparaten & diensten → Integratie toevoegen**. Zonder companion blijft de
+bestaande live kaart en kamerkeuze volledig werken.
+
 ## Handmatige entiteitstoewijzing
 
 Als Ecovacs andere namen heeft aangemaakt, open je de kaarteditor en klap je **Handmatige entiteitstoewijzing** open. Of gebruik YAML:
@@ -82,6 +100,7 @@ show_map: true
 show_details: true
 entities:
   map: image.deebot_n8_plus_map
+  map_geometry: sensor.deebot_n8_plus_map_geometry
   mop_attached: binary_sensor.deebot_n8_plus_mop_attached
   cleaning_area: sensor.deebot_n8_plus_cleaning_cycle_area
   cleaning_time: sensor.deebot_n8_plus_cleaning_cycle_time
@@ -137,7 +156,7 @@ Rond de bank|250,600,1450,-400|mdi:sofa
 
 De kaart gebruikt standaard het Ecovacs-commando `custom_area`. Dit is een reverse-engineered, modelspecifieke functie. Test elke zone eerst terwijl je bij de robot bent. Als jouw integratie of model een ander commando verwacht, kun je `region_command` aanpassen.
 
-De integratie levert de kaart als een afgewerkte `image.*`- of `camera.*`-entiteit. De kaart plaatst deze op een Ecovacs-achtige rasterachtergrond met zwevende sessiestatistieken, maar kan de kleuren en kamercontouren in de bronafbeelding niet betrouwbaar herschrijven.
+Zonder de optionele companion-integratie gebruikt de kaart de afgewerkte `image.*`- of `camera.*`-entiteit. Met Ecovacs Map Data worden de originele Ecovacs-subsetcoördinaten als SVG-lagen boven de kaart geplaatst.
 
 ## Problemen oplossen
 

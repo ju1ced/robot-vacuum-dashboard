@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Add optional interactive room polygons, labels and direct room selection on the live map.
+- Add automatic discovery and a manual override for the Ecovacs Map Data geometry sensor.
+- Include the source for the event-driven Ecovacs Map Data companion integration.
+
 ## 0.3.0
 
 - Redesign the overview around a dominant app-style live map.

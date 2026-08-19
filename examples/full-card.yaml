@@ -18,6 +18,7 @@ cleaning_regions:
 region_command: custom_area
 entities:
   map: image.deebot_n8_plus_map
+  map_geometry: sensor.deebot_n8_plus_map_geometry
   mop_attached: binary_sensor.deebot_n8_plus_mop_attached
   cleaning_area: sensor.deebot_n8_plus_cleaning_cycle_area
   cleaning_time: sensor.deebot_n8_plus_cleaning_cycle_time
