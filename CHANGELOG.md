@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+- Constrain the card to a readable width on ultrawide Home Assistant dashboards.
+- Restore the compact desktop map-and-status layout shown in the repository preview.
+- Keep the app-style full-width map and round cleaning control on tablets and phones.
+
 ## 0.4.2
 
 - Prefer Home Assistant area-registry names for room labels and area controls.
