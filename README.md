@@ -81,7 +81,11 @@ Met die sensor kan de kaart:
 - een kamer rechtstreeks op de kaart selecteren;
 - de geselecteerde Home Assistant-ruimte via `vacuum.clean_area` reinigen.
 
-De companion-bron staat voorlopig in [`companion/ecovacs-map-data`](companion/ecovacs-map-data) en wordt als afzonderlijke HACS-integratie gepubliceerd. Zonder companion blijft de bestaande live kaart en kamerkeuze volledig werken.
+Installeer de companion via HACS als aangepaste **Integratie** uit
+[`ju1ced/ecovacs-map-data`](https://github.com/ju1ced/ecovacs-map-data). Herstart
+Home Assistant en voeg daarna **Ecovacs Map Data** toe via **Instellingen →
+Apparaten & diensten → Integratie toevoegen**. Zonder companion blijft de
+bestaande live kaart en kamerkeuze volledig werken.
 
 ## Handmatige entiteitstoewijzing
 
