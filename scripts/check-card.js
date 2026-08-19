@@ -16,6 +16,9 @@ const required = [
   "data-map-area-id",
   "existingMapImage",
   "_preloadMapSource",
+  "_sanitizeMapSvg",
+  "rvd-room-fills",
+  "map_render_mode",
 ];
 
 const missing = required.filter((token) => !source.includes(token));

@@ -1,6 +1,6 @@
 {
   "name": "robot-vacuum-dashboard",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "private": true,
   "description": "A cohesive robot vacuum dashboard card for Home Assistant.",
   "scripts": {

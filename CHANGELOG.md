@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- Render the trusted Home Assistant Ecovacs SVG inline so its native cleaning path, robot and charging station remain independent visual layers.
+- Insert vivid room fills below the live layers and transparent room hit targets plus Home Assistant area labels above them.
+- Sanitize fetched SVG content, retain atomic revision swaps and fall back automatically to the image renderer when inline SVG is unavailable.
+- Add an optional `map_render_mode: image` compatibility fallback.
+
 ## 0.5.3
 
 - Preload each new Ecovacs map frame off-screen and swap it in only after it has loaded.

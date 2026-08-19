@@ -4,6 +4,7 @@ name: DEEBOT N8+
 confirm_actions: true
 show_map: true
 show_details: true
+map_render_mode: native_svg
 cleaning_areas:
   - name: Keuken
     id: kitchen
