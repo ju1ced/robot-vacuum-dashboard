@@ -4,7 +4,9 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 
 ![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.2%2B-41BDF5.svg)
-![Version](https://img.shields.io/badge/version-0.1.0-138d88.svg)
+![Version](https://img.shields.io/badge/version-0.1.1-138d88.svg)
+
+![Robot Vacuum Dashboard overview](docs/images/dashboard-overview.png)
 
 ## Functies
 

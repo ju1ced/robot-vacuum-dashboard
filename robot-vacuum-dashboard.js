@@ -1,4 +1,4 @@
-const ROBOT_VACUUM_DASHBOARD_VERSION = "0.1.0";
+const ROBOT_VACUUM_DASHBOARD_VERSION = "0.1.1";
 
 const RVD_LABELS = {
   cleaning: "Aan het schoonmaken",
