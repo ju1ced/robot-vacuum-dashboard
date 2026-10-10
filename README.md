@@ -8,6 +8,8 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 
 ![Robot Vacuum Dashboard overview](docs/images/dashboard-overview.png)
 
+> **English:** the card follows the language of your Home Assistant profile. It ships with English and Dutch; other languages fall back to English. Set `language: en` or `language: nl` to override.
+
 ## Functies
 
 - Eén kaart met overzicht, alle data en instellingen
@@ -135,6 +137,7 @@ Alle mappings zijn optioneel. Onderhoudswaarden vallen automatisch terug op de `
 | `show_map` | `true` | Toont of verbergt het kaartpaneel |
 | `show_details` | `true` | Toont totalen en onderhoud |
 | `map_render_mode` | `native_svg` | Gebruikt de gelaagde SVG-renderer; `image` forceert de compatibele fallback |
+| `language` | automatisch | Taal van de kaart: `en` of `nl`. Standaard volgt de kaart de taal van het Home Assistant-profiel en valt terug op Engels |
 | `entities` | `{}` | Optionele handmatige entiteitstoewijzingen |
 
 ## Ecovacs-entiteiten activeren
@@ -143,7 +146,9 @@ Welke entiteiten beschikbaar zijn, hangt af van het model. Open **Instellingen �
 
 ## Ruimtes reinigen
 
-Home Assistant ondersteunt op geschikte modellen `vacuum.clean_area`. Koppel eerst de Ecovacs-segmenten via de instellingen van de vacuümentiteit onder **Vacuümsegmenten aan ruimtes koppelen**. Voeg daarna in de kaarteditor regels toe met `Naam | area-ID | icoon`:
+Home Assistant ondersteunt op geschikte modellen `vacuum.clean_area`. Koppel de Ecovacs-segmenten in de instellingen van de vacuümentiteit onder **Vacuümsegmenten aan ruimtes koppelen**. De kaart leest die koppeling automatisch uit Home Assistant: de ruimtes verschijnen als keuzeknoppen en de kamers op de kaart worden op segment-ID aan de juiste ruimte gekoppeld. Er is niets in de kaarteditor nodig.
+
+Zonder Home Assistant-koppeling kun je in de kaarteditor als terugval regels toevoegen met `Naam | area-ID | icoon`:
 
 ```text
 Keuken|kitchen|mdi:silverware-fork-knife
@@ -151,7 +156,7 @@ Woonkamer|living_room|mdi:sofa
 Hal|hallway|mdi:coat-rack
 ```
 
-De kaart laat één of meerdere kamers selecteren en verstuurt ze samen via `cleaning_area_id` naar de officiële Home Assistant-actie.
+De kaart laat één of meerdere kamers selecteren, ook met het toetsenbord, en verstuurt ze samen via `cleaning_area_id` naar de officiële Home Assistant-actie.
 
 ## Opgeslagen vrije zones
 
@@ -174,14 +179,21 @@ Zonder de optionele companion-integratie gebruikt de kaart de afgewerkte `image.
 - **Robot niet gevonden:** controleer of `entity` met `vacuum.` begint.
 - **Commando werkt niet:** test hetzelfde commando eerst via Ontwikkelaarstools → Acties.
 
+## Vertalingen
+
+Alle teksten staan in `RVD_TRANSLATIONS` bovenaan `robot-vacuum-dashboard.js`. Voeg een taal toe met dezelfde sleutels als `en`; `node scripts/check-card.js` controleert dat elke taal alle sleutels heeft.
+
 ## Ontwikkeling
 
 De HACS-distributie is het ongecompileerde bestand `robot-vacuum-dashboard.js`; er is geen buildstap nodig.
 
 ```bash
+npm ci
 npm run check
 npm test
 ```
+
+`npm test` draait de tests in `tests/` met Node's ingebouwde testrunner en happy-dom. Open `scripts/preview.html` via een lokale webserver; `?lang=en|nl`, `?churn=1` (elke seconde een niet-gerelateerde statuswijziging) en `?fail=1` (mislukte acties) helpen bij handmatig testen.
 
 ## Licentie
 

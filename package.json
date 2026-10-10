@@ -5,6 +5,9 @@
   "description": "A cohesive robot vacuum dashboard card for Home Assistant.",
   "scripts": {
     "check": "node --check robot-vacuum-dashboard.js",
-    "test": "node scripts/check-card.js"
+    "test": "node --test \"tests/**/*.test.mjs\""
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "20.14.5"
   }
 }

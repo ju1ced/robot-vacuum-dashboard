@@ -1,36 +1,344 @@
 const ROBOT_VACUUM_DASHBOARD_VERSION = "0.6.0";
 
-const RVD_LABELS = {
-  cleaning: "Aan het schoonmaken",
-  docked: "Op het laadstation",
-  returning: "Terug naar het station",
-  paused: "Gepauzeerd",
-  idle: "Gereed",
-  error: "Controle nodig",
-  unavailable: "Niet bereikbaar",
-  unknown: "Status onbekend",
+const RVD_TRANSLATIONS = {
+  en: {
+    state_cleaning: "Cleaning",
+    state_docked: "Docked",
+    state_returning: "Returning to dock",
+    state_paused: "Paused",
+    state_idle: "Ready",
+    state_error: "Needs attention",
+    state_unavailable: "Unavailable",
+    state_unknown: "Status unknown",
+    card_description: "A complete, cohesive dashboard for robot vacuums.",
+    error_invalid_entity: "Select a valid vacuum.* entity.",
+    default_name: "Robot vacuum",
+    not_available: "Not available",
+    entity_not_found: "Entity {entity} not found.",
+    tab_overview: "Overview",
+    tab_details: "All data",
+    tab_settings: "Settings",
+    map_alt: "Map of the cleaning area",
+    battery_level: "Battery level",
+    attention_needed: "Attention needed",
+    check_robot: "Check the robot",
+    action_start: "Start",
+    action_pause: "Pause",
+    action_stop: "Stop",
+    action_home: "Return home",
+    action_locate: "Locate",
+    kicker_live_map: "LIVE MAP",
+    map_heading_cleaning: "Cleaning in progress",
+    map_heading_idle: "Choose a cleaning mode",
+    map_details: "Map details",
+    no_map: "No map found",
+    no_map_help: "Link the map entity in the card settings.",
+    kicker_current: "CURRENT",
+    last_clean: "Last clean",
+    metric_area: "Area",
+    metric_duration: "Duration",
+    metric_mop: "Mop",
+    mop_attached: "Attached",
+    mop_not_attached: "Not attached",
+    metric_suction: "Suction",
+    suction_default: "Standard",
+    kicker_history: "HISTORY",
+    all_cleanings: "All cleanings",
+    total_cleanings: "Cleanings",
+    total_area: "Total area",
+    total_time: "Total time",
+    areas_help: "Add Home Assistant area IDs in the card editor.",
+    regions_help: "Add saved Ecovacs coordinates in the card editor.",
+    auto_help: "Clean the whole active map.",
+    zone_name: "Zone {number}",
+    clean_selected_rooms: "Clean selected rooms",
+    clean_selected_zone: "Clean selected zone",
+    start_full_clean: "Start full clean",
+    mode_area: "Area",
+    mode_auto: "AUTO",
+    mode_custom: "Custom",
+    confirm_rooms_one: "Clean {count} selected room?",
+    confirm_rooms_other: "Clean {count} selected rooms?",
+    confirm_zone: "Clean the zone {name}?",
+    custom_zone: "Custom",
+    control_work_mode: "Work mode",
+    control_water_level: "Water level",
+    kicker_maintenance: "MAINTENANCE",
+    parts: "Parts",
+    main_brush: "Main brush",
+    side_brush: "Side brush",
+    filter: "Filter",
+    no_data: "No data",
+    replace: "Replace",
+    check_soon: "Check soon",
+    in_order: "OK",
+    kicker_diagnostics: "DIAGNOSTICS",
+    all_linked_data: "All linked data",
+    entity_count: "{count} entities",
+    setting_continuous: "Resume after charging",
+    setting_carpet: "Carpet boost",
+    setting_advanced: "Advanced mode",
+    kicker_robot: "ROBOT",
+    smart_behaviour: "Smart behaviour",
+    no_switches: "No supported switches found.",
+    kicker_map: "MAP",
+    configuration: "Configuration",
+    config_vacuum: "Vacuum",
+    config_map: "Map",
+    not_linked: "Not linked",
+    config_confirm: "Action confirmation",
+    on: "On",
+    off: "Off",
+    settings_hint: "Open the dashboard editor to assign entities manually or hide sections.",
+    confirm_start: "Start cleaning?",
+    confirm_stop: "Stop the current task?",
+    confirm_return: "Send the robot to the dock?",
+    editor_vacuum: "Robot vacuum",
+    editor_vacuum_entity: "Vacuum entity",
+    editor_choose: "Choose a robot…",
+    editor_name: "Name",
+    editor_confirm: "Confirm actions",
+    editor_show_map: "Show map",
+    editor_show_details: "Show details",
+    editor_targeted: "Targeted cleaning",
+    editor_targeted_help: "One item per line. Rooms: name | Home Assistant area ID | icon. Zones: name | x1,y1,x2,y2 | icon.",
+    editor_rooms: "Rooms",
+    editor_rooms_placeholder: "Kitchen|kitchen|mdi:silverware-fork-knife",
+    editor_zones: "Saved zones",
+    editor_zones_placeholder: "Under dining table|-1339,-1511,296,-2587|mdi:table-furniture",
+    editor_zone_command: "Ecovacs zone command",
+    editor_manual: "Manual entity mapping",
+    editor_manual_help: "Leave fields empty to detect entities automatically.",
+    editor_auto: "Automatic",
+    field_map: "Map (image or camera)",
+    field_map_geometry: "Room geometry",
+    field_mop: "Mop attached",
+    field_cleaning_area: "Current clean area",
+    field_cleaning_time: "Current clean duration",
+    field_total_cleanings: "Number of cleanings",
+    field_clean_count: "Number of passes",
+    field_error: "Error status",
+    kind_label: "ROBOT VACUUM",
+    sections: "Card sections",
+    cleaning_modes: "Cleaning modes",
+    action_failed: "Action failed: {error}",
+    area_mapping_hint: "To clean by room, link the vacuum's rooms to Home Assistant areas in the vacuum's entity settings.",
+    editor_language: "Language",
+    language_auto: "Automatic (Home Assistant language)",
+    editor_rooms_help: "Optional. Only used when the vacuum has no Home Assistant area mapping. One room per line: name | area ID | icon.",
+    editor_zones_help: "One zone per line: name | x1,y1,x2,y2 | icon.",
+  },
+  nl: {
+    state_cleaning: "Aan het schoonmaken",
+    state_docked: "Op het laadstation",
+    state_returning: "Terug naar het station",
+    state_paused: "Gepauzeerd",
+    state_idle: "Gereed",
+    state_error: "Controle nodig",
+    state_unavailable: "Niet bereikbaar",
+    state_unknown: "Status onbekend",
+    card_description: "Een compleet en samenhangend dashboard voor robotstofzuigers.",
+    error_invalid_entity: "Selecteer een geldige vacuum.* entiteit.",
+    default_name: "Robotstofzuiger",
+    not_available: "Niet beschikbaar",
+    entity_not_found: "Entiteit {entity} niet gevonden.",
+    tab_overview: "Overzicht",
+    tab_details: "Alle data",
+    tab_settings: "Instellingen",
+    map_alt: "Kaart van de schoonmaakzone",
+    battery_level: "Accuniveau",
+    attention_needed: "Aandacht nodig",
+    check_robot: "Controleer de robot",
+    action_start: "Start",
+    action_pause: "Pauze",
+    action_stop: "Stop",
+    action_home: "Naar huis",
+    action_locate: "Vind robot",
+    kicker_live_map: "LIVE MAP",
+    map_heading_cleaning: "Schoonmaak bezig",
+    map_heading_idle: "Kies een schoonmaakmodus",
+    map_details: "Kaartdetails",
+    no_map: "Geen kaart gevonden",
+    no_map_help: "Koppel de map-entiteit in de kaartinstellingen.",
+    kicker_current: "ACTUEEL",
+    last_clean: "Laatste schoonmaak",
+    metric_area: "Oppervlakte",
+    metric_duration: "Duur",
+    metric_mop: "Dweil",
+    mop_attached: "Geplaatst",
+    mop_not_attached: "Niet geplaatst",
+    metric_suction: "Zuigkracht",
+    suction_default: "Standaard",
+    kicker_history: "HISTORIE",
+    all_cleanings: "Alle schoonmaakbeurten",
+    total_cleanings: "Schoonmaakbeurten",
+    total_area: "Totale oppervlakte",
+    total_time: "Totale tijd",
+    areas_help: "Voeg Home Assistant area-ID's toe via de kaarteditor.",
+    regions_help: "Voeg opgeslagen Ecovacs-coördinaten toe via de kaarteditor.",
+    auto_help: "Reinig de volledige actieve kaart.",
+    zone_name: "Zone {number}",
+    clean_selected_rooms: "Reinig geselecteerde kamers",
+    clean_selected_zone: "Reinig geselecteerde zone",
+    start_full_clean: "Start volledige schoonmaak",
+    mode_area: "Area",
+    mode_auto: "AUTO",
+    mode_custom: "Custom",
+    confirm_rooms_one: "Wil je {count} geselecteerde ruimte reinigen?",
+    confirm_rooms_other: "Wil je {count} geselecteerde ruimtes reinigen?",
+    confirm_zone: "Wil je de zone {name} reinigen?",
+    custom_zone: "Custom",
+    control_work_mode: "Werkmodus",
+    control_water_level: "Waterniveau",
+    kicker_maintenance: "ONDERHOUD",
+    parts: "Onderdelen",
+    main_brush: "Hoofdborstel",
+    side_brush: "Zijborstel",
+    filter: "Filter",
+    no_data: "Geen data",
+    replace: "Vervangen",
+    check_soon: "Binnenkort controleren",
+    in_order: "In orde",
+    kicker_diagnostics: "DIAGNOSTIEK",
+    all_linked_data: "Alle gekoppelde data",
+    entity_count: "{count} entiteiten",
+    setting_continuous: "Hervatten na opladen",
+    setting_carpet: "Boost op tapijt",
+    setting_advanced: "Geavanceerde modus",
+    kicker_robot: "ROBOT",
+    smart_behaviour: "Slim gedrag",
+    no_switches: "Geen ondersteunde schakelaars gevonden.",
+    kicker_map: "KAART",
+    configuration: "Configuratie",
+    config_vacuum: "Vacuüm",
+    config_map: "Kaart",
+    not_linked: "Niet gekoppeld",
+    config_confirm: "Actiebevestiging",
+    on: "Aan",
+    off: "Uit",
+    settings_hint: "Open de dashboard-editor om entiteiten handmatig toe te wijzen of onderdelen te verbergen.",
+    confirm_start: "Wil je de schoonmaak starten?",
+    confirm_stop: "Wil je de huidige taak stoppen?",
+    confirm_return: "Wil je de robot naar het station sturen?",
+    editor_vacuum: "Robotstofzuiger",
+    editor_vacuum_entity: "Vacuümentiteit",
+    editor_choose: "Kies een robot…",
+    editor_name: "Naam",
+    editor_confirm: "Acties bevestigen",
+    editor_show_map: "Kaart tonen",
+    editor_show_details: "Details tonen",
+    editor_targeted: "Gericht schoonmaken",
+    editor_targeted_help: "Eén item per regel. Kamers: naam | Home Assistant area-ID | icoon. Zones: naam | x1,y1,x2,y2 | icoon.",
+    editor_rooms: "Kamers",
+    editor_rooms_placeholder: "Keuken|kitchen|mdi:silverware-fork-knife",
+    editor_zones: "Opgeslagen zones",
+    editor_zones_placeholder: "Onder eettafel|-1339,-1511,296,-2587|mdi:table-furniture",
+    editor_zone_command: "Ecovacs zonecommando",
+    editor_manual: "Handmatige entiteitstoewijzing",
+    editor_manual_help: "Laat velden leeg om entiteiten automatisch te herkennen.",
+    editor_auto: "Automatisch",
+    field_map: "Kaart (image of camera)",
+    field_map_geometry: "Kamergeometrie",
+    field_mop: "Dweil geplaatst",
+    field_cleaning_area: "Oppervlakte huidige beurt",
+    field_cleaning_time: "Duur huidige beurt",
+    field_total_cleanings: "Aantal schoonmaakbeurten",
+    field_clean_count: "Aantal rondes",
+    field_error: "Foutstatus",
+    kind_label: "ROBOTSTOFZUIGER",
+    sections: "Kaartonderdelen",
+    cleaning_modes: "Schoonmaakmodi",
+    action_failed: "Actie mislukt: {error}",
+    area_mapping_hint: "Koppel de kamers van de robot aan Home Assistant-ruimtes in de entiteitsinstellingen van de robot om per kamer te reinigen.",
+    editor_language: "Taal",
+    language_auto: "Automatisch (taal van Home Assistant)",
+    editor_rooms_help: "Optioneel. Alleen gebruikt als de robot geen Home Assistant-ruimtekoppeling heeft. Eén kamer per regel: naam | area-ID | icoon.",
+    editor_zones_help: "Eén zone per regel: naam | x1,y1,x2,y2 | icoon.",
+  },
 };
 
-const RVD_ENTITY_RULES = {
-  map: { domains: ["image", "camera"], terms: ["map", "kaart"] },
-  map_geometry: { domains: ["sensor"], terms: ["map_geometry", "map geometry", "kaartgeometrie"] },
-  mop_attached: { domains: ["binary_sensor"], terms: ["mop_attached", "mop", "dweil"] },
-  cleaning_area: { domains: ["sensor"], terms: ["cleaning_cycle_area", "stats_area", "cleaned_area"] },
-  cleaning_time: { domains: ["sensor"], terms: ["cleaning_cycle_time", "stats_time", "cleaning_time"] },
-  total_area: { domains: ["sensor"], terms: ["total_statistics_area", "total_area"] },
-  total_time: { domains: ["sensor"], terms: ["total_statistics_time", "total_time"] },
-  total_cleanings: { domains: ["sensor"], terms: ["total_statistics_cleanings", "total_cleanings", "cleanings"] },
-  water_level: { domains: ["select", "number", "sensor"], terms: ["water_level", "water", "waterhoeveelheid"] },
-  work_mode: { domains: ["select"], terms: ["work_mode", "cleaning_mode", "modus"] },
-  clean_count: { domains: ["number"], terms: ["clean_count", "cleanings", "rondes"] },
-  error: { domains: ["sensor"], terms: ["error", "fout"] },
-  main_brush: { domains: ["sensor"], terms: ["main_brush", "component_brush", "hoofdborstel"] },
-  side_brush: { domains: ["sensor"], terms: ["side_brush", "component_side_brush", "zijborstel"] },
-  filter: { domains: ["sensor"], terms: ["filter", "component_filter"] },
-  continuous_cleaning: { domains: ["switch"], terms: ["continuous_cleaning", "continue", "hervatten"] },
-  carpet_boost: { domains: ["switch"], terms: ["carpet_auto_fan_speed_boost", "carpet_boost", "tapijt"] },
-  advanced_mode: { domains: ["switch"], terms: ["advanced_mode", "advanced", "geavanceerd"] },
+// Picks the card language: explicit `language` option, then the Home Assistant
+// profile language, then the browser. Unknown languages fall back to English.
+const rvdLanguage = (hass, override) => {
+  const requested = String(override || hass?.locale?.language || hass?.language || globalThis.navigator?.language || "en").toLowerCase();
+  const base = requested.split("-")[0];
+  if (RVD_TRANSLATIONS[requested]) return requested;
+  return RVD_TRANSLATIONS[base] ? base : "en";
 };
+
+const rvdTranslate = (language, key, values = {}) => {
+  const template = RVD_TRANSLATIONS[language]?.[key] ?? RVD_TRANSLATIONS.en[key] ?? key;
+  return template.replace(/\{(\w+)\}/g, (_match, name) => String(values[name] ?? ""));
+};
+
+const RVD_STATE_KEYS = {
+  cleaning: "state_cleaning",
+  docked: "state_docked",
+  returning: "state_returning",
+  paused: "state_paused",
+  idle: "state_idle",
+  error: "state_error",
+  unavailable: "state_unavailable",
+  unknown: "state_unknown",
+};
+
+// `translationKeys` match the entity registry of integrations such as the official
+// Ecovacs integration and do not depend on entity names or the UI language.
+// `terms` are the name-based fallback for integrations without translation keys.
+const RVD_ENTITY_RULES = {
+  map: { domains: ["image", "camera"], translationKeys: ["map"], terms: ["map", "kaart"] },
+  map_geometry: { domains: ["sensor"], translationKeys: ["map_geometry"], platforms: ["ecovacs_map_data"], terms: ["map_geometry", "map geometry", "kaartgeometrie"] },
+  mop_attached: { domains: ["binary_sensor"], translationKeys: ["water_mop_attached", "mop_attached"], terms: ["mop_attached", "mop", "dweil"] },
+  cleaning_area: { domains: ["sensor"], translationKeys: ["stats_area"], terms: ["cleaning_cycle_area", "stats_area", "cleaned_area", "area_cleaned"] },
+  cleaning_time: { domains: ["sensor"], translationKeys: ["stats_time"], terms: ["cleaning_cycle_time", "stats_time", "cleaning_time", "cleaning_duration"] },
+  total_area: { domains: ["sensor"], translationKeys: ["total_stats_area"], terms: ["total_statistics_area", "total_area"] },
+  total_time: { domains: ["sensor"], translationKeys: ["total_stats_time"], terms: ["total_statistics_time", "total_time", "total_cleaning_duration"] },
+  total_cleanings: { domains: ["sensor"], translationKeys: ["total_stats_cleanings"], terms: ["total_statistics_cleanings", "total_cleanings", "cleanings"] },
+  water_level: { domains: ["select", "number", "sensor"], translationKeys: ["water_amount"], terms: ["water_level", "water", "waterhoeveelheid"] },
+  work_mode: { domains: ["select"], translationKeys: ["work_mode"], terms: ["work_mode", "cleaning_mode", "modus"] },
+  clean_count: { domains: ["number"], translationKeys: ["clean_count"], terms: ["clean_count", "cleanings", "rondes"] },
+  error: { domains: ["sensor"], translationKeys: ["error"], terms: ["error", "fout"] },
+  main_brush: { domains: ["sensor"], translationKeys: ["lifespan_brush"], terms: ["main_brush", "component_brush", "hoofdborstel"] },
+  side_brush: { domains: ["sensor"], translationKeys: ["lifespan_side_brush"], terms: ["side_brush", "component_side_brush", "zijborstel"] },
+  filter: { domains: ["sensor"], translationKeys: ["lifespan_filter"], terms: ["filter", "component_filter"] },
+  continuous_cleaning: { domains: ["switch"], translationKeys: ["continuous_cleaning"], terms: ["continuous_cleaning", "continue", "hervatten"] },
+  carpet_boost: { domains: ["switch"], translationKeys: ["carpet_auto_fan_boost"], terms: ["carpet_auto_fan_speed_boost", "carpet_boost", "tapijt"] },
+  advanced_mode: { domains: ["switch"], translationKeys: ["advanced_mode"], terms: ["advanced_mode", "advanced", "geavanceerd"] },
+};
+
+const RVD_EDITOR_FIELDS = [
+  ["map", "field_map"], ["map_geometry", "field_map_geometry"], ["mop_attached", "field_mop"],
+  ["cleaning_area", "field_cleaning_area"], ["cleaning_time", "field_cleaning_time"],
+  ["total_area", "total_area"], ["total_time", "total_time"],
+  ["total_cleanings", "field_total_cleanings"], ["water_level", "control_water_level"],
+  ["work_mode", "control_work_mode"], ["clean_count", "field_clean_count"], ["error", "field_error"],
+  ["main_brush", "main_brush"], ["side_brush", "side_brush"], ["filter", "filter"],
+];
+
+const RVD_ICONS = {
+  play: "mdi:play", pause: "mdi:pause", stop: "mdi:stop", home: "mdi:home-import-outline", locate: "mdi:crosshairs-gps",
+  battery: "mdi:battery", area: "mdi:texture-box", time: "mdi:clock-outline", suction: "mdi:fan", mop: "mdi:water",
+};
+
+const RVD_VACUUM_FEATURE_CLEAN_AREA = 16384;
+
+// Only these SVG elements and attributes survive map sanitizing. Everything else,
+// including scripts, event handlers, animation and foreign content, is removed.
+const RVD_SVG_ELEMENTS = new Set([
+  "svg", "g", "path", "rect", "circle", "ellipse", "line", "polyline", "polygon", "use", "defs", "symbol",
+  "image", "pattern", "lineargradient", "radialgradient", "stop", "clippath", "mask", "title", "desc",
+  "text", "tspan", "style",
+]);
+const RVD_SVG_ATTRIBUTES = new Set([
+  "id", "class", "style", "d", "points", "x", "y", "x1", "y1", "x2", "y2", "dx", "dy", "cx", "cy", "r", "rx", "ry",
+  "fx", "fy", "width", "height", "viewbox", "preserveaspectratio", "transform", "version", "xmlns", "xmlns:xlink",
+  "xml:space", "href", "xlink:href", "fill", "fill-opacity", "fill-rule", "stroke", "stroke-width", "stroke-opacity",
+  "stroke-linecap", "stroke-linejoin", "stroke-dasharray", "stroke-dashoffset", "stroke-miterlimit", "opacity",
+  "clip-path", "clip-rule", "clippathunits", "mask", "maskunits", "maskcontentunits", "offset", "stop-color",
+  "stop-opacity", "gradientunits", "gradienttransform", "spreadmethod", "patternunits", "patterntransform",
+  "patterncontentunits", "font-size", "font-family", "font-weight", "text-anchor", "dominant-baseline",
+  "vector-effect", "paint-order", "visibility", "display", "image-rendering", "shape-rendering",
+]);
 
 const rvdEscape = (value) => String(value ?? "")
   .replaceAll("&", "&amp;")
@@ -38,6 +346,26 @@ const rvdEscape = (value) => String(value ?? "")
   .replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&#039;");
+
+const rvdParseCollection = (key, value) => String(value || "")
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .filter(Boolean)
+  .map((line) => {
+    const [name, rawValue, icon] = line.split("|").map((part) => part.trim());
+    return key === "cleaning_areas"
+      ? { name: name || rawValue, id: rawValue, icon: icon || "mdi:floor-plan" }
+      : { name: name || "Zone", coordinates: rawValue, icon: icon || "mdi:vector-rectangle" };
+  })
+  .filter((item) => key === "cleaning_areas" ? item.id : item.coordinates);
+
+const rvdCollectionText = (key, items) => (Array.isArray(items) ? items : [])
+  .map((item) => key === "cleaning_areas"
+    ? `${item.name || item.id}|${item.id}|${item.icon || "mdi:floor-plan"}`
+    : `${item.name || "Zone"}|${Array.isArray(item.coordinates) ? item.coordinates.join(",") : item.coordinates}|${item.icon || "mdi:vector-rectangle"}`)
+  .join("\n");
+
+let rvdSharedSheet = null;
 
 class RobotVacuumDashboardCard extends HTMLElement {
   constructor() {
@@ -51,14 +379,19 @@ class RobotVacuumDashboardCard extends HTMLElement {
     this._mapMetadata = null;
     this._mapMetadataLoading = null;
     this._pendingMapSource = null;
+    this._entityCache = null;
+    this._renderSignature = null;
+    this._areaMapping = null;
+    this._areaMappingLoading = null;
+    this._renderDeferred = false;
+    this._adoptStyles();
   }
 
   setConfig(config) {
     if (!config?.entity || !String(config.entity).startsWith("vacuum.")) {
-      throw new Error("Selecteer een geldige vacuum.* entiteit.");
+      throw new Error(rvdTranslate(rvdLanguage(this._hass, config?.language), "error_invalid_entity"));
     }
     this.config = {
-      name: "Robotstofzuiger",
       confirm_actions: true,
       show_map: true,
       show_details: true,
@@ -69,12 +402,17 @@ class RobotVacuumDashboardCard extends HTMLElement {
       entities: {},
       ...config,
     };
+    this._entityCache = null;
+    this._renderSignature = null;
+    if (this._areaMapping?.entity !== this.config.entity) this._areaMapping = null;
     this._queueRender();
   }
 
   set hass(hass) {
+    const previous = this._hass;
     this._hass = hass;
-    this._queueRender();
+    if (previous?.entities !== hass?.entities) this._areaMapping = null;
+    if (this.config && this._signatureChanged()) this._queueRender();
   }
 
   getCardSize() { return 8; }
@@ -89,7 +427,45 @@ class RobotVacuumDashboardCard extends HTMLElement {
 
   static getStubConfig(hass) {
     const entity = Object.keys(hass?.states || {}).find((id) => id.startsWith("vacuum."));
-    return { entity: entity || "vacuum.deebot", name: "Robotstofzuiger" };
+    return { entity: entity || "vacuum.deebot", name: rvdTranslate(rvdLanguage(hass), "default_name") };
+  }
+
+  _t(key, values) {
+    return rvdTranslate(rvdLanguage(this._hass, this.config?.language), key, values);
+  }
+
+  _stateLabel(state) {
+    return RVD_STATE_KEYS[state] ? this._t(RVD_STATE_KEYS[state]) : state;
+  }
+
+  _adoptStyles() {
+    const supported = typeof CSSStyleSheet === "function" && "adoptedStyleSheets" in this.shadowRoot && "replaceSync" in CSSStyleSheet.prototype;
+    if (!supported) {
+      this._styleMarkup = `<style>${this._styles()}</style>`;
+      return;
+    }
+    if (!rvdSharedSheet) {
+      rvdSharedSheet = new CSSStyleSheet();
+      rvdSharedSheet.replaceSync(this._styles());
+    }
+    this.shadowRoot.adoptedStyleSheets = [rvdSharedSheet];
+    this._styleMarkup = "";
+  }
+
+  // Home Assistant hands every card a new `hass` object on any state change in the
+  // house. Only re-render when something this card shows has changed.
+  _signatureChanged() {
+    const hass = this._hass;
+    if (!hass) return false;
+    const resolved = this._resolveEntities();
+    const ids = [this.config.entity, ...Object.values(resolved).filter(Boolean)];
+    const signature = [
+      hass.entities, hass.devices, hass.areas, hass.locale, hass.language,
+      ...ids.map((id) => hass.states?.[id]),
+    ];
+    const previous = this._renderSignature;
+    this._renderSignature = signature;
+    return !previous || previous.length !== signature.length || signature.some((value, index) => value !== previous[index]);
   }
 
   _queueRender() {
@@ -105,6 +481,14 @@ class RobotVacuumDashboardCard extends HTMLElement {
 
   _root() { return this.config.entity.split(".")[1] || ""; }
 
+  _registryEntry(entityId) {
+    return this._hass.entities?.[entityId];
+  }
+
+  _vacuumDeviceId() {
+    return this._registryEntry(this.config.entity)?.device_id || null;
+  }
+
   _relatedStates() {
     const root = this._root().toLowerCase();
     const rootWords = root.split("_").filter((word) => word.length > 2);
@@ -115,11 +499,45 @@ class RobotVacuumDashboardCard extends HTMLElement {
     });
   }
 
-  _entity(key) {
-    const configured = this.config.entities?.[key];
-    if (configured && this._hass.states[configured]) return configured;
+  // Resolves every role (map, statistics, consumables, switches) to an entity once per
+  // registry or entity-list change. Order: explicit config, then the vacuum's own device
+  // by translation key, then the name heuristic for integrations without a registry match.
+  _resolveEntities() {
+    const hass = this._hass;
+    if (!hass || !this.config) return {};
+    const stateCount = Object.keys(hass.states || {}).length;
+    const cache = this._entityCache;
+    if (cache && cache.entities === hass.entities && cache.stateCount === stateCount && cache.config === this.config) return cache.resolved;
+
+    const registry = hass.entities || {};
+    const deviceId = this._vacuumDeviceId();
+    const deviceEntries = deviceId ? Object.values(registry).filter((entry) => entry.device_id === deviceId) : [];
+    const resolved = {};
+    for (const [key, rule] of Object.entries(RVD_ENTITY_RULES)) {
+      const configured = this.config.entities?.[key];
+      if (configured && hass.states[configured]) {
+        resolved[key] = configured;
+        continue;
+      }
+      const candidates = [...deviceEntries];
+      if (rule.platforms) {
+        candidates.push(...Object.values(registry).filter((entry) => rule.platforms.includes(entry.platform) && !candidates.includes(entry)));
+      }
+      const byKey = rule.translationKeys
+        .map((translationKey) => candidates.find((entry) =>
+          entry.translation_key === translationKey &&
+          rule.domains.includes(entry.entity_id.split(".")[0]) &&
+          hass.states[entry.entity_id]))
+        .find(Boolean);
+      resolved[key] = byKey?.entity_id || this._entityByName(key);
+    }
+    this._entityCache = { entities: hass.entities, stateCount, config: this.config, resolved };
+    return resolved;
+  }
+
+  _entityByName(key) {
     const rule = RVD_ENTITY_RULES[key];
-    if (!rule) return configured;
+    if (!rule) return null;
     const relatedCandidates = this._relatedStates().filter(([id]) => rule.domains.includes(id.split(".")[0]));
     const geometryCandidates = key === "map_geometry"
       ? Object.entries(this._hass.states).filter(([id, state]) =>
@@ -137,9 +555,19 @@ class RobotVacuumDashboardCard extends HTMLElement {
     return best;
   }
 
+  _entity(key) {
+    return this._resolveEntities()[key] || null;
+  }
+
   _state(key) {
     const id = this._entity(key);
     return id ? this._hass.states[id] : null;
+  }
+
+  _brand() {
+    const device = this._hass.devices?.[this._vacuumDeviceId()];
+    const manufacturer = String(device?.manufacturer || "").trim();
+    return manufacturer ? `${manufacturer.toUpperCase()} · ${this._t("kind_label")}` : this._t("kind_label");
   }
 
   _battery() {
@@ -156,10 +584,27 @@ class RobotVacuumDashboardCard extends HTMLElement {
     return Number.isFinite(attr) ? Math.max(0, Math.min(100, attr)) : null;
   }
 
-  _formatState(state, fallback = "Niet beschikbaar") {
+  _formatState(state, fallback = this._t("not_available")) {
     if (!state || ["unknown", "unavailable", "none", ""].includes(String(state.state).toLowerCase())) return fallback;
+    if (typeof this._hass.formatEntityState === "function") {
+      try { return this._hass.formatEntityState(state); } catch (_error) { /* fall back to the raw value */ }
+    }
     const unit = state.attributes?.unit_of_measurement || "";
     return `${state.state}${unit ? ` ${unit}` : ""}`;
+  }
+
+  _formatOption(state, option) {
+    if (state && typeof this._hass.formatEntityState === "function") {
+      try { return this._hass.formatEntityState(state, option); } catch (_error) { /* raw value below */ }
+    }
+    return option;
+  }
+
+  _formatFanSpeed(vacuum, value) {
+    if (typeof this._hass.formatEntityAttributeValue === "function") {
+      try { return this._hass.formatEntityAttributeValue(vacuum, "fan_speed", value); } catch (_error) { /* raw value below */ }
+    }
+    return value;
   }
 
   _entityPictureUrl(state) {
@@ -198,19 +643,27 @@ class RobotVacuumDashboardCard extends HTMLElement {
     const safeReference = (value) => value.startsWith("#") || /^data:image\/(?:png|jpe?g|gif|webp);base64,/i.test(value);
     const sanitizeCssUrls = (value) => value.replace(/url\s*\(\s*(["']?)([^)'"\s]+)\1\s*\)/gi,
       (match, _quote, reference) => safeReference(reference) ? match : "none");
-    document.querySelectorAll("script,foreignObject,iframe,object,embed,audio,video").forEach((element) => element.remove());
-    document.querySelectorAll("style").forEach((element) => {
-      element.textContent = element.textContent
-        .replace(/@import\s+(?:url\s*\()?[^;]+;?/gi, "")
-        .replace(/url\s*\(\s*(["']?)([^)'"\s]+)\1\s*\)/gi,
-          (match, _quote, reference) => safeReference(reference) ? match : "none");
+    [...document.querySelectorAll("*")].forEach((element) => {
+      const svgElement = element.namespaceURI === "http://www.w3.org/2000/svg" && RVD_SVG_ELEMENTS.has(element.localName.toLowerCase());
+      if (element !== root && !svgElement) element.remove();
     });
-    document.querySelectorAll("*").forEach((element) => {
+    document.querySelectorAll("style").forEach((element) => {
+      element.textContent = sanitizeCssUrls(element.textContent
+        .replace(/@import\s+(?:url\s*\()?[^;]+;?/gi, "")
+        .replace(/expression\s*\(/gi, "none("));
+    });
+    [root, ...document.querySelectorAll("*")].forEach((element) => {
       [...element.attributes].forEach((attribute) => {
         const name = attribute.name.toLowerCase();
         const value = attribute.value.trim();
-        if (name.startsWith("on")) element.removeAttribute(attribute.name);
-        if ((name === "href" || name === "xlink:href") && !safeReference(value)) element.removeAttribute(attribute.name);
+        if (!RVD_SVG_ATTRIBUTES.has(name)) {
+          element.removeAttribute(attribute.name);
+          return;
+        }
+        if ((name === "href" || name === "xlink:href") && !safeReference(value)) {
+          element.removeAttribute(attribute.name);
+          return;
+        }
         if (/url\s*\(/i.test(value)) element.setAttribute(attribute.name, sanitizeCssUrls(value));
       });
     });
@@ -224,7 +677,7 @@ class RobotVacuumDashboardCard extends HTMLElement {
   }
 
   _normalizeRoomName(value) {
-    return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+    return String(value || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]/g, "");
   }
 
   _areaDisplayName(area) {
@@ -234,6 +687,45 @@ class RobotVacuumDashboardCard extends HTMLElement {
       ? registry.find((candidate) => (candidate.area_id || candidate.id) === area.id)
       : registry?.[area.id];
     return entry?.name || area.name || area.id;
+  }
+
+  _supportsCleanArea() {
+    return (Number(this._vacuum()?.attributes?.supported_features) & RVD_VACUUM_FEATURE_CLEAN_AREA) !== 0;
+  }
+
+  // Reads Home Assistant's own room-to-area link for this vacuum (entity settings).
+  _areaMappingFor() {
+    const entityId = this.config.entity;
+    if (this._areaMapping?.entity === entityId) return this._areaMapping.mapping;
+    if (this._areaMappingLoading === entityId || typeof this._hass.callWS !== "function") return null;
+    this._areaMappingLoading = entityId;
+    this._hass.callWS({ type: "config/entity_registry/get", entity_id: entityId })
+      .then((entry) => {
+        const mapping = entry?.options?.vacuum?.area_mapping;
+        this._areaMapping = { entity: entityId, mapping: mapping && typeof mapping === "object" ? mapping : null };
+      })
+      .catch(() => { this._areaMapping = { entity: entityId, mapping: null }; })
+      .finally(() => {
+        this._areaMappingLoading = null;
+        this._queueRender();
+      });
+    return null;
+  }
+
+  _cleaningAreas() {
+    const mapping = this._areaMappingFor();
+    if (mapping && Object.keys(mapping).length) {
+      return Object.entries(mapping).map(([areaId, segments]) => {
+        const area = Array.isArray(this._hass.areas) ? null : this._hass.areas?.[areaId];
+        return {
+          id: areaId,
+          name: this._areaDisplayName({ id: areaId }),
+          icon: area?.icon || "mdi:floor-plan",
+          segments: (Array.isArray(segments) ? segments : [segments]).map(String),
+        };
+      });
+    }
+    return Array.isArray(this.config.cleaning_areas) ? this.config.cleaning_areas : [];
   }
 
   _vacuumPointToMap(point, rotation) {
@@ -258,7 +750,7 @@ class RobotVacuumDashboardCard extends HTMLElement {
     for (const [name, value] of Object.entries(vacuumRooms)) {
       for (const id of Array.isArray(value) ? value : [value]) segmentNames.set(String(id), name);
     }
-    const configuredAreas = Array.isArray(this.config.cleaning_areas) ? this.config.cleaning_areas : [];
+    const areas = this._cleaningAreas();
     const palette = ["#e7c980", "#98cfa3", "#e2a5a5", "#a9b9ed", "#d6b0df", "#8ecfd7", "#e9bb86"];
     const renderedRooms = [];
 
@@ -267,10 +759,10 @@ class RobotVacuumDashboardCard extends HTMLElement {
       if (points.length < 3) return;
       const ecovacsName = segmentNames.get(String(room.id)) || room.name;
       const normalizedNames = [room.name, ecovacsName].map((name) => this._normalizeRoomName(name));
-      const area = configuredAreas.find((candidate) =>
-        [candidate.name, candidate.id].some((value) => normalizedNames.includes(this._normalizeRoomName(value)))
-      );
-      const selected = area && this._selectedAreas.has(area.id);
+      const area = areas.find((candidate) => candidate.segments?.includes(String(room.id))) ||
+        areas.find((candidate) => !candidate.segments &&
+          [candidate.name, candidate.id].some((value) => normalizedNames.includes(this._normalizeRoomName(value))));
+      const selected = Boolean(area && this._selectedAreas.has(area.id));
       const displayName = area ? this._areaDisplayName(area) : room.name;
       const path = `${points.map(([x, y], pointIndex) => `${pointIndex ? "L" : "M"}${x} ${y}`).join(" ")} Z`;
       const center = points.reduce((total, [x, y]) => [total[0] + x, total[1] + y], [0, 0]).map((value) => value / points.length);
@@ -291,7 +783,7 @@ class RobotVacuumDashboardCard extends HTMLElement {
     const data = this._roomRenderData(vacuum);
     if (!data) return "";
     const paths = data.rooms.flatMap((room) => [
-      `<path class="room-shape ${room.selected ? "selected" : ""}" d="${rvdEscape(room.path)}" fill="${room.color}" data-map-area-id="${rvdEscape(room.id)}"><title>${rvdEscape(room.displayName)}</title></path>`,
+      `<path class="room-shape ${room.selected ? "selected" : ""}" d="${rvdEscape(room.path)}" fill="${rvdEscape(room.color)}" data-map-area-id="${rvdEscape(room.id)}"${room.id ? ` tabindex="0" role="button" aria-pressed="${room.selected}" aria-label="${rvdEscape(room.displayName)}"` : ""}><title>${rvdEscape(room.displayName)}</title></path>`,
       `<text class="room-label" x="${room.center[0]}" y="${room.center[1]}">${rvdEscape(room.displayName)}</text>`,
     ]);
     return `<svg class="room-overlay" viewBox="${data.viewBox.join(" ")}" preserveAspectRatio="xMidYMid meet">${paths.join("")}</svg>`;
@@ -320,6 +812,12 @@ class RobotVacuumDashboardCard extends HTMLElement {
       hit.setAttribute("class", "rvd-room-hit");
       hit.setAttribute("d", room.path);
       hit.setAttribute("data-map-area-id", room.id);
+      if (room.id) {
+        hit.setAttribute("tabindex", "0");
+        hit.setAttribute("role", "button");
+        hit.setAttribute("aria-pressed", String(room.selected));
+        hit.setAttribute("aria-label", room.displayName);
+      }
       const title = document.createElementNS(namespace, "title");
       title.textContent = room.displayName;
       hit.append(title);
@@ -345,31 +843,45 @@ class RobotVacuumDashboardCard extends HTMLElement {
   }
 
   _icon(name) {
-    const icons = {
-      play: "▶", pause: "Ⅱ", stop: "■", home: "⌂", locate: "◎",
-      battery: "ϟ", area: "▱", time: "◷", runs: "↻", mop: "≋",
-    };
-    return icons[name] || "•";
+    return `<ha-icon icon="${rvdEscape(RVD_ICONS[name] || "mdi:circle-small")}"></ha-icon>`;
+  }
+
+  // Re-rendering replaces the shadow DOM, which would close an open dropdown or drop
+  // focus from a field. Wait until the user leaves the field.
+  _focusedFormControl() {
+    const active = this.shadowRoot.activeElement;
+    return active && ["SELECT", "INPUT", "TEXTAREA"].includes(active.tagName) ? active : null;
   }
 
   _render() {
+    const focused = this._focusedFormControl();
+    if (focused) {
+      if (!this._renderDeferred) {
+        this._renderDeferred = true;
+        focused.addEventListener("blur", () => {
+          this._renderDeferred = false;
+          this._queueRender();
+        }, { once: true });
+      }
+      return;
+    }
     const vacuum = this._vacuum();
     if (!vacuum) {
-      this.shadowRoot.innerHTML = `<style>${this._styles()}</style><ha-card><div class="missing">Entiteit ${rvdEscape(this.config.entity)} niet gevonden.</div></ha-card>`;
+      this.shadowRoot.innerHTML = `${this._styleMarkup}<ha-card><div class="missing">${rvdEscape(this._t("entity_not_found", { entity: this.config.entity }))}</div></ha-card>`;
       return;
     }
     const existingMapImage = this.shadowRoot.querySelector(".map-visual .map");
     const existingNativeMap = this.shadowRoot.querySelector(".map-native");
     this.shadowRoot.innerHTML = `
-      <style>${this._styles()}</style>
+      ${this._styleMarkup}
       <ha-card>
         ${this._header(vacuum)}
-        <nav>
-          ${this._navButton("overview", "Overzicht")}
-          ${this._navButton("details", "Alle data")}
-          ${this._navButton("settings", "Instellingen")}
+        <nav role="tablist" aria-label="${rvdEscape(this._t("sections"))}">
+          ${this._navButton("overview", this._t("tab_overview"))}
+          ${this._navButton("details", this._t("tab_details"))}
+          ${this._navButton("settings", this._t("tab_settings"))}
         </nav>
-        <main>${this._tab === "overview" ? this._overview(vacuum) : this._tab === "details" ? this._details() : this._settings()}</main>
+        <main role="tabpanel">${this._tab === "overview" ? this._overview(vacuum) : this._tab === "details" ? this._details() : this._settings()}</main>
         <footer>Robot Vacuum Dashboard · v${ROBOT_VACUUM_DASHBOARD_VERSION}</footer>
       </ha-card>`;
     const nextMapImage = this.shadowRoot.querySelector(".map-visual .map");
@@ -392,7 +904,7 @@ class RobotVacuumDashboardCard extends HTMLElement {
     this._pendingMapSource = source;
     const preload = new Image();
     preload.className = "map";
-    preload.alt = "Kaart van de schoonmaakzone";
+    preload.alt = this._t("map_alt");
     preload.addEventListener("load", () => {
       if (this._pendingMapSource !== source) return;
       const visibleMap = this.shadowRoot.querySelector(".map-visual .map");
@@ -409,14 +921,15 @@ class RobotVacuumDashboardCard extends HTMLElement {
     const state = vacuum.state;
     const battery = this._battery();
     const error = state === "error" || Boolean(vacuum.attributes?.error && !["None", "no_error"].includes(vacuum.attributes.error));
+    const batteryLabel = `${this._t("battery_level")}: ${battery === null ? "–" : `${battery}%`}`;
     return `<header class="hero ${error ? "hero-error" : ""}">
       <div class="robot ${state === "cleaning" ? "working" : ""}"><ha-icon icon="mdi:robot-vacuum-variant"></ha-icon></div>
       <div class="hero-copy">
-        <div class="eyebrow">ECOVACS · ROBOT VACUUM</div>
-        <h1>${rvdEscape(this.config.name || vacuum.attributes?.friendly_name || "Robotstofzuiger")}</h1>
-        <p><span class="status-dot ${rvdEscape(state)}"></span>${rvdEscape(RVD_LABELS[state] || state)}</p>
+        <div class="eyebrow">${rvdEscape(this._brand())}</div>
+        <h1>${rvdEscape((this.config.name ?? this._t("default_name")) || vacuum.attributes?.friendly_name || this._t("default_name"))}</h1>
+        <p><span class="status-dot ${rvdEscape(state)}"></span>${rvdEscape(this._stateLabel(state))}</p>
       </div>
-      <div class="battery" title="Accuniveau">
+      <div class="battery" role="img" aria-label="${rvdEscape(batteryLabel)}" title="${rvdEscape(batteryLabel)}">
         <span>${this._icon("battery")}</span><strong>${battery ?? "–"}</strong><small>${battery === null ? "" : "%"}</small>
         <div class="battery-track"><i style="width:${battery ?? 0}%"></i></div>
       </div>
@@ -424,7 +937,8 @@ class RobotVacuumDashboardCard extends HTMLElement {
   }
 
   _navButton(tab, label) {
-    return `<button class="nav-button ${this._tab === tab ? "active" : ""}" data-tab="${tab}">${label}</button>`;
+    const active = this._tab === tab;
+    return `<button class="nav-button ${active ? "active" : ""}" role="tab" aria-selected="${active}" data-tab="${tab}">${rvdEscape(label)}</button>`;
   }
 
   _overview(vacuum) {
@@ -434,57 +948,76 @@ class RobotVacuumDashboardCard extends HTMLElement {
     const nativeMap = this._nativeMapMarkup(vacuum);
     const roomOverlay = nativeMap ? "" : this._roomOverlay(vacuum);
     const error = this._state("error");
+    const fanSpeed = vacuum.attributes?.fan_speed;
     return `
-      ${vacuum.state === "error" || (error && !["0", "none", "no error"].includes(error.state.toLowerCase())) ? `<div class="alert"><ha-icon icon="mdi:alert-circle"></ha-icon><div><strong>Aandacht nodig</strong><span>${rvdEscape(error?.attributes?.description || error?.state || vacuum.attributes?.error || "Controleer de robot")}</span></div></div>` : ""}
+      ${vacuum.state === "error" || (error && !["0", "none", "no error"].includes(error.state.toLowerCase())) ? `<div class="alert" role="alert"><ha-icon icon="mdi:alert-circle"></ha-icon><div><strong>${rvdEscape(this._t("attention_needed"))}</strong><span>${rvdEscape(error?.attributes?.description || error?.state || vacuum.attributes?.error || this._t("check_robot"))}</span></div></div>` : ""}
       <section class="actions">
-        ${this._actionButton("vacuum.start", "play", "Start", "primary")}
-        ${this._actionButton("vacuum.pause", "pause", "Pauze")}
-        ${this._actionButton("vacuum.stop", "stop", "Stop")}
-        ${this._actionButton("vacuum.return_to_base", "home", "Naar huis")}
-        ${this._actionButton("vacuum.locate", "locate", "Vind robot")}
+        ${this._actionButton("vacuum.start", "play", this._t("action_start"), "primary")}
+        ${this._actionButton("vacuum.pause", "pause", this._t("action_pause"))}
+        ${this._actionButton("vacuum.stop", "stop", this._t("action_stop"))}
+        ${this._actionButton("vacuum.return_to_base", "home", this._t("action_home"))}
+        ${this._actionButton("vacuum.locate", "locate", this._t("action_locate"))}
       </section>
       <div class="dashboard-grid ${!this.config.show_map ? "without-map" : ""}">
         ${this.config.show_map ? `<section class="panel map-panel ${vacuum.state === "cleaning" ? "is-cleaning" : ""}">
-          <div class="panel-heading map-heading"><div><span class="kicker">LIVE MAP</span><h2>${vacuum.state === "cleaning" ? "Schoonmaak bezig" : "Kies een schoonmaakmodus"}</h2></div>${map ? `<button class="map-detail" data-more-info="${rvdEscape(map.entity_id)}" title="Kaartdetails"><ha-icon icon="mdi:dots-horizontal"></ha-icon></button>` : ""}</div>
+          <div class="panel-heading map-heading"><div><span class="kicker">${rvdEscape(this._t("kicker_live_map"))}</span><h2>${rvdEscape(vacuum.state === "cleaning" ? this._t("map_heading_cleaning") : this._t("map_heading_idle"))}</h2></div>${map ? `<button class="map-detail" data-more-info="${rvdEscape(map.entity_id)}" title="${rvdEscape(this._t("map_details"))}" aria-label="${rvdEscape(this._t("map_details"))}"><ha-icon icon="mdi:dots-horizontal"></ha-icon></button>` : ""}</div>
           <div class="map-stage">
-            <div class="session-card"><div class="session-state"><i></i><span>${rvdEscape(RVD_LABELS[vacuum.state] || vacuum.state)}</span></div><div><b><ha-icon icon="mdi:texture-box"></ha-icon>${rvdEscape(this._formatState(this._state("cleaning_area"), "–"))}</b><b><ha-icon icon="mdi:clock-outline"></ha-icon>${rvdEscape(this._formatState(this._state("cleaning_time"), "–"))}</b></div></div>
-            ${nativeMap || (mapUrl ? `<div class="map-visual"><img class="map" src="${rvdEscape(mapUrl)}" alt="Kaart van de schoonmaakzone">${roomOverlay}</div>` : `<div class="empty map-empty"><ha-icon icon="mdi:map-outline"></ha-icon><strong>Geen kaart gevonden</strong><span>Koppel de map-entiteit in de kaartinstellingen.</span></div>`)}
+            <div class="session-card"><div class="session-state"><i></i><span>${rvdEscape(this._stateLabel(vacuum.state))}</span></div><div><b><ha-icon icon="mdi:texture-box"></ha-icon>${rvdEscape(this._formatState(this._state("cleaning_area"), "–"))}</b><b><ha-icon icon="mdi:clock-outline"></ha-icon>${rvdEscape(this._formatState(this._state("cleaning_time"), "–"))}</b></div></div>
+            ${nativeMap || (mapUrl ? `<div class="map-visual"><img class="map" src="${rvdEscape(mapUrl)}" alt="${rvdEscape(this._t("map_alt"))}">${roomOverlay}</div>` : `<div class="empty map-empty"><ha-icon icon="mdi:map-outline"></ha-icon><strong>${rvdEscape(this._t("no_map"))}</strong><span>${rvdEscape(this._t("no_map_help"))}</span></div>`)}
           </div>
           ${this._cleaningModePanel()}
         </section>` : ""}
         <section class="panel stats-panel">
-          <div class="panel-heading"><div><span class="kicker">ACTUEEL</span><h2>Laatste schoonmaak</h2></div></div>
+          <div class="panel-heading"><div><span class="kicker">${rvdEscape(this._t("kicker_current"))}</span><h2>${rvdEscape(this._t("last_clean"))}</h2></div></div>
           <div class="metric-grid">
-            ${this._metric("area", "Oppervlakte", this._formatState(this._state("cleaning_area")))}
-            ${this._metric("time", "Duur", this._formatState(this._state("cleaning_time")))}
-            ${this._metric("mop", "Dweil", this._state("mop_attached")?.state === "on" ? "Geplaatst" : "Niet geplaatst")}
-            ${this._metric("runs", "Zuigkracht", vacuum.attributes?.fan_speed || "Standaard")}
+            ${this._metric("area", this._t("metric_area"), this._formatState(this._state("cleaning_area")))}
+            ${this._metric("time", this._t("metric_duration"), this._formatState(this._state("cleaning_time")))}
+            ${this._metric("mop", this._t("metric_mop"), this._state("mop_attached")?.state === "on" ? this._t("mop_attached") : this._t("mop_not_attached"))}
+            ${this._metric("suction", this._t("metric_suction"), fanSpeed ? this._formatFanSpeed(vacuum, fanSpeed) : this._t("suction_default"))}
           </div>
           ${this._controls(vacuum)}
         </section>
       </div>
       ${this.config.show_details ? `<section class="panel totals">
-        <div class="panel-heading"><div><span class="kicker">HISTORIE</span><h2>Alle schoonmaakbeurten</h2></div></div>
+        <div class="panel-heading"><div><span class="kicker">${rvdEscape(this._t("kicker_history"))}</span><h2>${rvdEscape(this._t("all_cleanings"))}</h2></div></div>
         <div class="total-grid">
-          ${this._total("mdi:counter", "Schoonmaakbeurten", this._formatState(this._state("total_cleanings")))}
-          ${this._total("mdi:texture-box", "Totale oppervlakte", this._formatState(this._state("total_area")))}
-          ${this._total("mdi:timer-outline", "Totale tijd", this._formatState(this._state("total_time")))}
+          ${this._total("mdi:counter", this._t("total_cleanings"), this._formatState(this._state("total_cleanings")))}
+          ${this._total("mdi:texture-box", this._t("total_area"), this._formatState(this._state("total_area")))}
+          ${this._total("mdi:timer-outline", this._t("total_time"), this._formatState(this._state("total_time")))}
         </div>
       </section>
       ${this._maintenancePanel()}` : ""}`;
   }
 
   _cleaningModePanel() {
-    const areas = Array.isArray(this.config.cleaning_areas) ? this.config.cleaning_areas : [];
+    const areas = this._cleaningAreas();
     const regions = Array.isArray(this.config.cleaning_regions) ? this.config.cleaning_regions : [];
+    const areaHelp = this._supportsCleanArea() && !Object.keys(this._areaMapping?.mapping || {}).length && !areas.length
+      ? this._t("area_mapping_hint")
+      : this._t("areas_help");
     const modeContent = this._cleanMode === "area"
-      ? (areas.length ? `<div class="target-grid">${areas.map((area) => `<button class="target-chip ${this._selectedAreas.has(area.id) ? "selected" : ""}" data-area-id="${rvdEscape(area.id)}"><ha-icon icon="${rvdEscape(area.icon || "mdi:floor-plan")}"></ha-icon><span>${rvdEscape(this._areaDisplayName(area))}</span></button>`).join("")}</div>` : `<p class="target-help">Voeg Home Assistant area-ID's toe via de kaarteditor.</p>`)
+      ? (areas.length ? `<div class="target-grid">${areas.map((area) => `<button class="target-chip ${this._selectedAreas.has(area.id) ? "selected" : ""}" aria-pressed="${this._selectedAreas.has(area.id)}" data-area-id="${rvdEscape(area.id)}"><ha-icon icon="${rvdEscape(area.icon || "mdi:floor-plan")}"></ha-icon><span>${rvdEscape(this._areaDisplayName(area))}</span></button>`).join("")}</div>` : `<p class="target-help">${rvdEscape(areaHelp)}</p>`)
       : this._cleanMode === "custom"
-        ? (regions.length ? `<div class="target-grid">${regions.map((region, index) => `<button class="target-chip ${this._selectedRegion === index ? "selected" : ""}" data-region-index="${index}"><ha-icon icon="${rvdEscape(region.icon || "mdi:vector-rectangle")}"></ha-icon><span>${rvdEscape(region.name || `Zone ${index + 1}`)}</span></button>`).join("")}</div>` : `<p class="target-help">Voeg opgeslagen Ecovacs-coördinaten toe via de kaarteditor.</p>`)
-        : `<p class="target-help">Reinig de volledige actieve kaart.</p>`;
+        ? (regions.length ? `<div class="target-grid">${regions.map((region, index) => `<button class="target-chip ${this._selectedRegion === index ? "selected" : ""}" aria-pressed="${this._selectedRegion === index}" data-region-index="${index}"><ha-icon icon="${rvdEscape(region.icon || "mdi:vector-rectangle")}"></ha-icon><span>${rvdEscape(region.name || this._t("zone_name", { number: index + 1 }))}</span></button>`).join("")}</div>` : `<p class="target-help">${rvdEscape(this._t("regions_help"))}</p>`)
+        : `<p class="target-help">${rvdEscape(this._t("auto_help"))}</p>`;
     const disabled = (this._cleanMode === "area" && !this._selectedAreas.size) || (this._cleanMode === "custom" && this._selectedRegion === null);
-    const actionLabel = this._cleanMode === "area" ? "Reinig geselecteerde kamers" : this._cleanMode === "custom" ? "Reinig geselecteerde zone" : "Start volledige schoonmaak";
-    return `<div class="cleaning-console"><div class="mode-tabs"><button class="${this._cleanMode === "area" ? "active" : ""}" data-clean-mode="area">Area</button><button class="${this._cleanMode === "auto" ? "active" : ""}" data-clean-mode="auto">AUTO</button><button class="${this._cleanMode === "custom" ? "active" : ""}" data-clean-mode="custom">Custom</button></div><div class="target-content">${modeContent}</div><div class="clean-action"><button class="clean-start" data-clean-start ${disabled ? "disabled" : ""} title="${rvdEscape(actionLabel)}"><ha-icon icon="mdi:robot-vacuum"></ha-icon></button><span>${rvdEscape(actionLabel)}</span></div></div>`;
+    const actionLabel = this._cleanMode === "area" ? this._t("clean_selected_rooms") : this._cleanMode === "custom" ? this._t("clean_selected_zone") : this._t("start_full_clean");
+    const modeTab = (mode, label) => `<button class="${this._cleanMode === mode ? "active" : ""}" role="tab" aria-selected="${this._cleanMode === mode}" data-clean-mode="${mode}">${rvdEscape(label)}</button>`;
+    return `<div class="cleaning-console"><div class="mode-tabs" role="tablist" aria-label="${rvdEscape(this._t("cleaning_modes"))}">${modeTab("area", this._t("mode_area"))}${modeTab("auto", this._t("mode_auto"))}${modeTab("custom", this._t("mode_custom"))}</div><div class="target-content">${modeContent}</div><div class="clean-action"><button class="clean-start" data-clean-start ${disabled ? "disabled" : ""} title="${rvdEscape(actionLabel)}" aria-label="${rvdEscape(actionLabel)}"><ha-icon icon="mdi:robot-vacuum"></ha-icon></button><span aria-hidden="true">${rvdEscape(actionLabel)}</span></div></div>`;
+  }
+
+  _notify(message) {
+    this.dispatchEvent(new CustomEvent("hass-notification", { detail: { message }, bubbles: true, composed: true }));
+  }
+
+  async _callService(domain, service, data = {}, target = { entity_id: this.config.entity }) {
+    try {
+      await this._hass.callService(domain, service, data, target);
+      return true;
+    } catch (error) {
+      this._notify(this._t("action_failed", { error: error?.message || String(error) }));
+      return false;
+    }
   }
 
   async _startTargetedCleaning() {
@@ -492,75 +1025,92 @@ class RobotVacuumDashboardCard extends HTMLElement {
     if (this._cleanMode === "area") {
       const ids = [...this._selectedAreas];
       if (!ids.length) return;
-      if (this.config.confirm_actions && !window.confirm(`Wil je ${ids.length} geselecteerde ruimte${ids.length === 1 ? "" : "s"} reinigen?`)) return;
-      await this._hass.callService("vacuum", "clean_area", { cleaning_area_id: ids }, { entity_id: this.config.entity });
+      if (this.config.confirm_actions && !window.confirm(this._t(ids.length === 1 ? "confirm_rooms_one" : "confirm_rooms_other", { count: ids.length }))) return;
+      await this._callService("vacuum", "clean_area", { cleaning_area_id: ids });
       return;
     }
     const region = this.config.cleaning_regions?.[this._selectedRegion];
     if (!region?.coordinates) return;
-    if (this.config.confirm_actions && !window.confirm(`Wil je de zone ${region.name || "Custom"} reinigen?`)) return;
+    if (this.config.confirm_actions && !window.confirm(this._t("confirm_zone", { name: region.name || this._t("custom_zone") }))) return;
     const cleanCountState = this._state("clean_count");
     const cleanings = Number(cleanCountState?.state || region.cleanings || 1);
     const coordinates = Array.isArray(region.coordinates) ? region.coordinates.join(",") : String(region.coordinates);
-    await this._hass.callService("vacuum", "send_command", {
+    await this._callService("vacuum", "send_command", {
       command: region.command || this.config.region_command || "custom_area",
       params: { coordinates, cleanings },
-    }, { entity_id: this.config.entity });
+    });
   }
 
   _actionButton(service, icon, label, kind = "") {
-    return `<button class="action ${kind}" data-service="${service}"><span>${this._icon(icon)}</span><b>${label}</b></button>`;
+    return `<button class="action ${kind}" data-service="${rvdEscape(service)}"><span>${this._icon(icon)}</span><b>${rvdEscape(label)}</b></button>`;
   }
 
   _metric(icon, label, value) {
-    return `<div class="metric"><span class="metric-icon">${this._icon(icon)}</span><div><small>${label}</small><strong>${rvdEscape(value)}</strong></div></div>`;
+    return `<div class="metric"><span class="metric-icon">${this._icon(icon)}</span><div><small>${rvdEscape(label)}</small><strong>${rvdEscape(value)}</strong></div></div>`;
   }
 
   _total(icon, label, value) {
-    return `<div class="total"><ha-icon icon="${icon}"></ha-icon><div><small>${label}</small><strong>${rvdEscape(value)}</strong></div></div>`;
+    return `<div class="total"><ha-icon icon="${rvdEscape(icon)}"></ha-icon><div><small>${rvdEscape(label)}</small><strong>${rvdEscape(value)}</strong></div></div>`;
   }
 
   _controls(vacuum) {
     const fanSpeeds = vacuum.attributes?.fan_speed_list || [];
     const selects = [
-      fanSpeeds.length ? { label: "Zuigkracht", type: "fan", value: vacuum.attributes?.fan_speed, options: fanSpeeds } : null,
-      this._selectControl("work_mode", "Werkmodus"),
-      this._selectControl("water_level", "Waterniveau"),
+      fanSpeeds.length ? {
+        label: this._t("metric_suction"), type: "fan", value: vacuum.attributes?.fan_speed,
+        options: fanSpeeds.map((option) => [option, this._formatFanSpeed(vacuum, option)]),
+      } : null,
+      this._selectControl("work_mode", this._t("control_work_mode")),
+      this._selectControl("water_level", this._t("control_water_level")),
     ].filter(Boolean);
     if (!selects.length) return "";
-    return `<div class="control-list">${selects.map((item) => `<label><span>${item.label}</span><select data-control="${item.type}" data-entity="${item.entity || ""}">${item.options.map((option) => `<option ${String(option) === String(item.value) ? "selected" : ""}>${rvdEscape(option)}</option>`).join("")}</select></label>`).join("")}</div>`;
+    return `<div class="control-list">${selects.map((item) => `<label><span>${rvdEscape(item.label)}</span><select data-control="${item.type}" data-entity="${rvdEscape(item.entity || "")}">${item.options.map(([value, label]) => `<option value="${rvdEscape(value)}" ${String(value) === String(item.value) ? "selected" : ""}>${rvdEscape(label)}</option>`).join("")}</select></label>`).join("")}</div>`;
   }
 
   _selectControl(key, label) {
     const entity = this._entity(key);
     const state = entity && this._hass.states[entity];
-    if (!state || !["select", "number"].includes(entity.split(".")[0])) return null;
-    if (entity.startsWith("number.")) return null;
-    return { label, type: "select", entity, value: state.state, options: state.attributes?.options || [] };
+    if (!state || !entity.startsWith("select.")) return null;
+    const options = (state.attributes?.options || []).map((option) => [option, this._formatOption(state, option)]);
+    return { label, type: "select", entity, value: state.state, options };
   }
 
   _maintenancePanel() {
     const items = [
-      ["Hoofdborstel", this._maintenance("main_brush", "component_brush")],
-      ["Zijborstel", this._maintenance("side_brush", "component_side_brush")],
-      ["Filter", this._maintenance("filter", "component_filter")],
+      [this._t("main_brush"), this._maintenance("main_brush", "component_brush")],
+      [this._t("side_brush"), this._maintenance("side_brush", "component_side_brush")],
+      [this._t("filter"), this._maintenance("filter", "component_filter")],
     ];
-    return `<section class="panel maintenance"><div class="panel-heading"><div><span class="kicker">ONDERHOUD</span><h2>Onderdelen</h2></div></div><div class="maintenance-grid">${items.map(([label, value]) => `<div class="life"><div class="ring" style="--value:${value ?? 0};--ring:${value === null ? "var(--muted)" : value <= 15 ? "var(--danger)" : value <= 35 ? "var(--warning)" : "var(--accent)"}"><span>${value === null ? "–" : `${value}%`}</span></div><strong>${label}</strong><small>${value === null ? "Geen data" : value <= 15 ? "Vervangen" : value <= 35 ? "Binnenkort controleren" : "In orde"}</small></div>`).join("")}</div></section>`;
+    return `<section class="panel maintenance"><div class="panel-heading"><div><span class="kicker">${rvdEscape(this._t("kicker_maintenance"))}</span><h2>${rvdEscape(this._t("parts"))}</h2></div></div><div class="maintenance-grid">${items.map(([label, value]) => `<div class="life"><div class="ring" role="img" aria-label="${rvdEscape(`${label}: ${value === null ? "–" : `${value}%`}`)}" style="--value:${value ?? 0};--ring:${value === null ? "var(--muted)" : value <= 15 ? "var(--danger)" : value <= 35 ? "var(--warning)" : "var(--accent)"}"><span>${value === null ? "–" : `${value}%`}</span></div><strong>${rvdEscape(label)}</strong><small>${rvdEscape(value === null ? this._t("no_data") : value <= 15 ? this._t("replace") : value <= 35 ? this._t("check_soon") : this._t("in_order"))}</small></div>`).join("")}</div></section>`;
+  }
+
+  // Entities shown on the "All data" tab: the vacuum's own device when the entity
+  // registry is available, otherwise the name-based guess.
+  _detailStates() {
+    const deviceId = this._vacuumDeviceId();
+    if (!deviceId) return this._relatedStates();
+    const ids = new Set(Object.values(this._hass.entities)
+      .filter((entry) => entry.device_id === deviceId && !entry.hidden)
+      .map((entry) => entry.entity_id));
+    ids.add(this.config.entity);
+    const geometry = this._entity("map_geometry");
+    if (geometry) ids.add(geometry);
+    return [...ids].filter((id) => this._hass.states[id]).map((id) => [id, this._hass.states[id]]);
   }
 
   _details() {
-    const states = this._relatedStates().sort(([a], [b]) => a.localeCompare(b));
-    return `<section class="panel data-panel"><div class="panel-heading"><div><span class="kicker">DIAGNOSTIEK</span><h2>Alle gekoppelde data</h2></div><span class="count">${states.length} entiteiten</span></div><div class="entity-list">${states.map(([id, state]) => `<button class="entity-row" data-more-info="${rvdEscape(id)}"><ha-icon icon="${rvdEscape(state.attributes?.icon || this._domainIcon(id))}"></ha-icon><span><strong>${rvdEscape(state.attributes?.friendly_name || id)}</strong><small>${rvdEscape(id)}</small></span><b>${rvdEscape(this._formatState(state))}</b></button>`).join("")}</div></section>`;
+    const states = this._detailStates().sort(([a], [b]) => a.localeCompare(b));
+    return `<section class="panel data-panel"><div class="panel-heading"><div><span class="kicker">${rvdEscape(this._t("kicker_diagnostics"))}</span><h2>${rvdEscape(this._t("all_linked_data"))}</h2></div><span class="count">${rvdEscape(this._t("entity_count", { count: states.length }))}</span></div><div class="entity-list">${states.map(([id, state]) => `<button class="entity-row" data-more-info="${rvdEscape(id)}"><ha-icon icon="${rvdEscape(state.attributes?.icon || this._domainIcon(id))}"></ha-icon><span><strong>${rvdEscape(state.attributes?.friendly_name || id)}</strong><small>${rvdEscape(id)}</small></span><b>${rvdEscape(this._formatState(state))}</b></button>`).join("")}</div></section>`;
   }
 
   _settings() {
     const toggles = [
-      ["continuous_cleaning", "Hervatten na opladen", "mdi:battery-sync"],
-      ["carpet_boost", "Boost op tapijt", "mdi:rug"],
-      ["advanced_mode", "Geavanceerde modus", "mdi:tune-variant"],
+      ["continuous_cleaning", this._t("setting_continuous"), "mdi:battery-sync"],
+      ["carpet_boost", this._t("setting_carpet"), "mdi:rug"],
+      ["advanced_mode", this._t("setting_advanced"), "mdi:tune-variant"],
     ];
     const available = toggles.map(([key, label, icon]) => [this._entity(key), label, icon]).filter(([id]) => id);
-    return `<div class="settings-grid"><section class="panel"><div class="panel-heading"><div><span class="kicker">ROBOT</span><h2>Slim gedrag</h2></div></div>${available.length ? `<div class="switch-list">${available.map(([id, label, icon]) => { const on = this._hass.states[id]?.state === "on"; return `<button class="switch-row" data-toggle="${id}"><ha-icon icon="${icon}"></ha-icon><span>${label}</span><i class="toggle ${on ? "on" : ""}"></i></button>`; }).join("")}</div>` : `<div class="empty compact"><span>Geen ondersteunde schakelaars gevonden.</span></div>`}</section><section class="panel"><div class="panel-heading"><div><span class="kicker">KAART</span><h2>Configuratie</h2></div></div><div class="config-summary"><p><span>Vacuüm</span><strong>${rvdEscape(this.config.entity)}</strong></p><p><span>Kaart</span><strong>${rvdEscape(this._entity("map") || "Niet gekoppeld")}</strong></p><p><span>Actiebevestiging</span><strong>${this.config.confirm_actions ? "Aan" : "Uit"}</strong></p></div><p class="hint">Open de dashboard-editor om entiteiten handmatig toe te wijzen of onderdelen te verbergen.</p></section></div>`;
+    return `<div class="settings-grid"><section class="panel"><div class="panel-heading"><div><span class="kicker">${rvdEscape(this._t("kicker_robot"))}</span><h2>${rvdEscape(this._t("smart_behaviour"))}</h2></div></div>${available.length ? `<div class="switch-list">${available.map(([id, label, icon]) => { const on = this._hass.states[id]?.state === "on"; return `<button class="switch-row" role="switch" aria-checked="${on}" data-toggle="${rvdEscape(id)}"><ha-icon icon="${rvdEscape(icon)}"></ha-icon><span>${rvdEscape(label)}</span><i class="toggle ${on ? "on" : ""}"></i></button>`; }).join("")}</div>` : `<div class="empty compact"><span>${rvdEscape(this._t("no_switches"))}</span></div>`}</section><section class="panel"><div class="panel-heading"><div><span class="kicker">${rvdEscape(this._t("kicker_map"))}</span><h2>${rvdEscape(this._t("configuration"))}</h2></div></div><div class="config-summary"><p><span>${rvdEscape(this._t("config_vacuum"))}</span><strong>${rvdEscape(this.config.entity)}</strong></p><p><span>${rvdEscape(this._t("config_map"))}</span><strong>${rvdEscape(this._entity("map") || this._t("not_linked"))}</strong></p><p><span>${rvdEscape(this._t("config_confirm"))}</span><strong>${rvdEscape(this.config.confirm_actions ? this._t("on") : this._t("off"))}</strong></p></div><p class="hint">${rvdEscape(this._t("settings_hint"))}</p></section></div>`;
   }
 
   _domainIcon(id) {
@@ -571,10 +1121,10 @@ class RobotVacuumDashboardCard extends HTMLElement {
   async _call(serviceName) {
     const [domain, service] = serviceName.split(".");
     if (this.config.confirm_actions && ["start", "stop", "return_to_base"].includes(service)) {
-      const labels = { start: "de schoonmaak starten", stop: "de huidige taak stoppen", return_to_base: "de robot naar het station sturen" };
-      if (!window.confirm(`Wil je ${labels[service]}?`)) return;
+      const keys = { start: "confirm_start", stop: "confirm_stop", return_to_base: "confirm_return" };
+      if (!window.confirm(this._t(keys[service]))) return;
     }
-    await this._hass.callService(domain, service, {}, { entity_id: this.config.entity });
+    await this._callService(domain, service);
   }
 
   _moreInfo(entityId) {
@@ -583,22 +1133,40 @@ class RobotVacuumDashboardCard extends HTMLElement {
     this.dispatchEvent(event);
   }
 
+  _toggleArea(id) {
+    if (!id) return;
+    this._cleanMode = "area";
+    if (this._selectedAreas.has(id)) this._selectedAreas.delete(id); else this._selectedAreas.add(id);
+    this._render();
+    const escaped = globalThis.CSS?.escape ? CSS.escape(id) : id.replace(/["\\]/g, "\\$&");
+    this.shadowRoot.querySelector(`[data-map-area-id="${escaped}"][tabindex]`)?.focus();
+  }
+
   _bindEvents() {
-    this.shadowRoot.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => { this._tab = button.dataset.tab; this._render(); }));
-    this.shadowRoot.querySelectorAll("[data-service]").forEach((button) => button.addEventListener("click", () => this._call(button.dataset.service)));
-    this.shadowRoot.querySelectorAll("[data-more-info]").forEach((button) => button.addEventListener("click", () => this._moreInfo(button.dataset.moreInfo)));
-    this.shadowRoot.querySelectorAll("[data-clean-mode]").forEach((button) => button.addEventListener("click", () => { this._cleanMode = button.dataset.cleanMode; this._render(); }));
-    this.shadowRoot.querySelectorAll("[data-area-id]").forEach((button) => button.addEventListener("click", () => { const id = button.dataset.areaId; this._selectedAreas.has(id) ? this._selectedAreas.delete(id) : this._selectedAreas.add(id); this._render(); }));
-    this.shadowRoot.querySelectorAll("[data-map-area-id]").forEach((shape) => shape.addEventListener("click", () => { const id = shape.dataset.mapAreaId; if (!id) return; this._cleanMode = "area"; this._selectedAreas.has(id) ? this._selectedAreas.delete(id) : this._selectedAreas.add(id); this._render(); }));
-    this.shadowRoot.querySelectorAll("[data-region-index]").forEach((button) => button.addEventListener("click", () => { this._selectedRegion = Number(button.dataset.regionIndex); this._render(); }));
+    const all = (selector) => this.shadowRoot.querySelectorAll(selector);
+    all("[data-tab]").forEach((button) => button.addEventListener("click", () => { this._tab = button.dataset.tab; this._render(); }));
+    all("[data-service]").forEach((button) => button.addEventListener("click", () => this._call(button.dataset.service)));
+    all("[data-more-info]").forEach((button) => button.addEventListener("click", () => this._moreInfo(button.dataset.moreInfo)));
+    all("[data-clean-mode]").forEach((button) => button.addEventListener("click", () => { this._cleanMode = button.dataset.cleanMode; this._render(); }));
+    all("[data-area-id]").forEach((button) => button.addEventListener("click", () => { const id = button.dataset.areaId; this._selectedAreas.has(id) ? this._selectedAreas.delete(id) : this._selectedAreas.add(id); this._render(); }));
+    all("[data-map-area-id]").forEach((shape) => {
+      shape.addEventListener("click", () => this._toggleArea(shape.dataset.mapAreaId));
+      shape.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        this._toggleArea(shape.dataset.mapAreaId);
+      });
+    });
+    all("[data-region-index]").forEach((button) => button.addEventListener("click", () => { this._selectedRegion = Number(button.dataset.regionIndex); this._render(); }));
     this.shadowRoot.querySelector("[data-clean-start]")?.addEventListener("click", () => this._startTargetedCleaning());
-    this.shadowRoot.querySelectorAll("[data-toggle]").forEach((button) => button.addEventListener("click", async () => {
+    all("[data-toggle]").forEach((button) => button.addEventListener("click", async () => {
       const id = button.dataset.toggle;
-      await this._hass.callService("switch", this._hass.states[id]?.state === "on" ? "turn_off" : "turn_on", {}, { entity_id: id });
+      await this._callService("switch", this._hass.states[id]?.state === "on" ? "turn_off" : "turn_on", {}, { entity_id: id });
     }));
-    this.shadowRoot.querySelectorAll("select[data-control]").forEach((select) => select.addEventListener("change", async () => {
-      if (select.dataset.control === "fan") await this._hass.callService("vacuum", "set_fan_speed", { fan_speed: select.value }, { entity_id: this.config.entity });
-      else await this._hass.callService("select", "select_option", { option: select.value }, { entity_id: select.dataset.entity });
+    all("select[data-control]").forEach((select) => select.addEventListener("change", async () => {
+      if (select.dataset.control === "fan") await this._callService("vacuum", "set_fan_speed", { fan_speed: select.value });
+      else await this._callService("select", "select_option", { option: select.value }, { entity_id: select.dataset.entity });
+      select.blur();
     }));
   }
 
@@ -614,34 +1182,169 @@ class RobotVacuumDashboardCard extends HTMLElement {
       @media(min-width:1100px){.dashboard-grid{grid-template-columns:minmax(0,1.6fr) minmax(320px,.65fr)}.map-panel{padding:20px;overflow:hidden;border-radius:22px}.map-heading{padding:0;margin-bottom:16px}.map-stage{height:500px;min-height:500px;border:1px solid var(--line);border-radius:17px}.map-visual{padding:70px 16px 12px}.room-overlay{inset:70px 16px 12px;width:calc(100% - 32px);height:calc(100% - 82px)}.session-card{top:14px;left:14px;right:14px;padding:11px 14px;border-radius:14px}.cleaning-console{padding:10px 0 0}.mode-tabs{max-width:none}.mode-tabs button{font-size:14px;padding:13px 10px 10px}.target-content{min-height:54px;padding:10px 0}.clean-action{position:relative;display:grid;padding:0}.clean-start{grid-area:1/1;width:100%;height:48px;border-radius:15px}.clean-start ha-icon{display:none}.clean-action>span{grid-area:1/1;align-self:center;justify-self:center;z-index:1;color:white;font-size:13px;font-weight:750;pointer-events:none}.stats-panel{margin-top:0}}
       @media(max-width:780px){.map-native{padding:82px 18px 18px}}
       @media(min-width:1100px){.map-native{padding:70px 16px 12px}}
+      .action span ha-icon,.metric-icon ha-icon{--mdc-icon-size:18px}.battery>span ha-icon{--mdc-icon-size:16px;color:var(--accent)}
+      button:focus-visible,.rvd-room-hit:focus-visible,.room-shape:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}.rvd-room-hit:focus-visible,.room-shape:focus-visible{fill:color-mix(in srgb,var(--accent-2) 14%,transparent);stroke:var(--accent-2)}
     `;
   }
 }
 
 class RobotVacuumDashboardCardEditor extends HTMLElement {
-  constructor() { super(); this.attachShadow({ mode: "open" }); }
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this._form = null;
+    this._formSupport = undefined;
+    this._fallbackSignature = null;
+  }
 
-  setConfig(config) { this.config = { entities: {}, ...config }; this._render(); }
+  setConfig(config) {
+    this.config = { entities: {}, ...config };
+    this._update();
+  }
 
-  set hass(hass) { this._hass = hass; this._render(); }
+  set hass(hass) {
+    this._hass = hass;
+    this._update();
+  }
 
-  _render() {
+  _t(key, values) {
+    return rvdTranslate(rvdLanguage(this._hass, this.config?.language), key, values);
+  }
+
+  // HA loads `ha-form` lazily. Creating a built-in card's editor once makes it available.
+  async _loadForm() {
+    if (customElements.get("ha-form")) return true;
+    try {
+      const helpers = await window.loadCardHelpers?.();
+      const card = await helpers?.createCardElement?.({ type: "entities", entities: [] });
+      await card?.constructor?.getConfigElement?.();
+    } catch (_error) { /* fall back below */ }
+    await Promise.race([customElements.whenDefined("ha-form"), new Promise((resolve) => setTimeout(resolve, 3000))]);
+    return Boolean(customElements.get("ha-form"));
+  }
+
+  _update() {
     if (!this.config || !this._hass) return;
-    const vacuumOptions = Object.keys(this._hass.states).filter((id) => id.startsWith("vacuum.")).sort();
-    const fields = [
-      ["map", "Kaart (image of camera)"], ["map_geometry", "Kamergeometrie"], ["mop_attached", "Dweil geplaatst"],
-      ["cleaning_area", "Oppervlakte huidige beurt"], ["cleaning_time", "Duur huidige beurt"],
-      ["total_area", "Totale oppervlakte"], ["total_time", "Totale tijd"],
-      ["total_cleanings", "Aantal schoonmaakbeurten"], ["water_level", "Waterniveau"],
-      ["work_mode", "Werkmodus"], ["clean_count", "Aantal rondes"], ["error", "Foutstatus"],
-      ["main_brush", "Hoofdborstel"], ["side_brush", "Zijborstel"], ["filter", "Filter"],
+    if (this._form) {
+      this._form.hass = this._hass;
+      this._form.data = this._formData();
+      this._form.schema = this._schema();
+      return;
+    }
+    if (this._formSupport === false) {
+      this._renderFallback();
+      return;
+    }
+    if (this._formSupport === undefined) {
+      this._formSupport = null;
+      this._loadForm().then((supported) => {
+        this._formSupport = supported;
+        if (supported) this._createForm();
+        this._update();
+      });
+    }
+  }
+
+  _createForm() {
+    this.shadowRoot.innerHTML = "";
+    const form = document.createElement("ha-form");
+    form.computeLabel = (schema) => this._label(schema.name);
+    form.computeHelper = (schema) => this._helper(schema.name);
+    form.addEventListener("value-changed", (event) => this._formChanged(event.detail.value));
+    this.shadowRoot.append(form);
+    this._form = form;
+  }
+
+  _schema() {
+    return [
+      { name: "entity", required: true, selector: { entity: { domain: "vacuum" } } },
+      { name: "name", selector: { text: {} } },
+      {
+        name: "language",
+        selector: { select: { mode: "dropdown", options: [
+          { value: "auto", label: this._t("language_auto") },
+          { value: "en", label: "English" },
+          { value: "nl", label: "Nederlands" },
+        ] } },
+      },
+      {
+        type: "grid", name: "", schema: [
+          { name: "confirm_actions", selector: { boolean: {} } },
+          { name: "show_map", selector: { boolean: {} } },
+          { name: "show_details", selector: { boolean: {} } },
+        ],
+      },
+      {
+        type: "expandable", name: "", flatten: true, title: this._t("editor_targeted"), schema: [
+          { name: "cleaning_regions_text", selector: { text: { multiline: true } } },
+          { name: "region_command", selector: { text: {} } },
+          { name: "cleaning_areas_text", selector: { text: { multiline: true } } },
+        ],
+      },
+      {
+        type: "expandable", name: "entities", title: this._t("editor_manual"),
+        schema: RVD_EDITOR_FIELDS.map(([key]) => ({ name: key, selector: { entity: { domain: RVD_ENTITY_RULES[key].domains } } })),
+      },
     ];
-    const areaLines = (this.config.cleaning_areas || []).map((area) => `${area.name || area.id}|${area.id}|${area.icon || "mdi:floor-plan"}`).join("\n");
-    const regionLines = (this.config.cleaning_regions || []).map((region) => `${region.name || "Zone"}|${Array.isArray(region.coordinates) ? region.coordinates.join(",") : region.coordinates}|${region.icon || "mdi:vector-rectangle"}`).join("\n");
-    this.shadowRoot.innerHTML = `<style>:host{display:block;padding:8px 0;font-family:system-ui,sans-serif}.editor{display:grid;gap:14px}.group{border:1px solid var(--divider-color,#ddd);border-radius:12px;padding:14px}.group h3{font-size:14px;margin:0 0 12px}.field{display:grid;gap:5px;margin:10px 0}.field span,.help{font-size:12px;color:var(--secondary-text-color)}input,select,textarea{width:100%;padding:10px;border:1px solid var(--divider-color,#ccc);border-radius:8px;background:var(--card-background-color,#fff);color:var(--primary-text-color);box-sizing:border-box}textarea{min-height:92px;resize:vertical;font-family:ui-monospace,monospace;font-size:12px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check{display:flex;align-items:center;gap:7px;font-size:12px}.check input{width:auto}</style><div class="editor"><div class="group"><h3>Robotstofzuiger</h3><label class="field"><span>Vacuümentiteit</span><select data-key="entity"><option value="">Kies een robot…</option>${vacuumOptions.map((id) => `<option value="${rvdEscape(id)}" ${this.config.entity === id ? "selected" : ""}>${rvdEscape(this._hass.states[id].attributes?.friendly_name || id)}</option>`).join("")}</select></label><label class="field"><span>Naam</span><input data-key="name" value="${rvdEscape(this.config.name || "")}" placeholder="Robotstofzuiger"></label><div class="checks">${[["confirm_actions","Acties bevestigen",true],["show_map","Kaart tonen",true],["show_details","Details tonen",true]].map(([key,label,defaultValue]) => `<label class="check"><input type="checkbox" data-key="${key}" ${(this.config[key] ?? defaultValue) ? "checked" : ""}>${label}</label>`).join("")}</div></div><details class="group" open><summary><strong>Gericht schoonmaken</strong></summary><p class="help">Eén item per regel. Kamers: naam | Home Assistant area-ID | icoon. Zones: naam | x1,y1,x2,y2 | icoon.</p><label class="field"><span>Kamers</span><textarea data-collection="cleaning_areas" placeholder="Keuken|kitchen|mdi:silverware-fork-knife">${rvdEscape(areaLines)}</textarea></label><label class="field"><span>Opgeslagen zones</span><textarea data-collection="cleaning_regions" placeholder="Onder eettafel|-1339,-1511,296,-2587|mdi:table-furniture">${rvdEscape(regionLines)}</textarea></label><label class="field"><span>Ecovacs zonecommando</span><input data-key="region_command" value="${rvdEscape(this.config.region_command || "custom_area")}"></label></details><details class="group"><summary><strong>Handmatige entiteitstoewijzing</strong></summary><p class="help">Laat velden leeg om entiteiten automatisch te herkennen.</p>${fields.map(([key,label]) => `<label class="field"><span>${label}</span><input data-entity-key="${key}" value="${rvdEscape(this.config.entities?.[key] || "")}" placeholder="Automatisch"></label>`).join("")}</details></div>`;
+  }
+
+  _formData() {
+    return {
+      ...this.config,
+      language: this.config.language || "auto",
+      confirm_actions: this.config.confirm_actions ?? true,
+      show_map: this.config.show_map ?? true,
+      show_details: this.config.show_details ?? true,
+      region_command: this.config.region_command || "custom_area",
+      cleaning_areas_text: rvdCollectionText("cleaning_areas", this.config.cleaning_areas),
+      cleaning_regions_text: rvdCollectionText("cleaning_regions", this.config.cleaning_regions),
+      entities: { ...(this.config.entities || {}) },
+    };
+  }
+
+  _label(name) {
+    const labels = {
+      entity: "editor_vacuum_entity", name: "editor_name", language: "editor_language",
+      confirm_actions: "editor_confirm", show_map: "editor_show_map", show_details: "editor_show_details",
+      cleaning_regions_text: "editor_zones", region_command: "editor_zone_command", cleaning_areas_text: "editor_rooms",
+    };
+    const field = RVD_EDITOR_FIELDS.find(([key]) => key === name);
+    return this._t(labels[name] || field?.[1] || name);
+  }
+
+  _helper(name) {
+    if (name === "cleaning_regions_text") return this._t("editor_zones_help");
+    if (name === "cleaning_areas_text") return this._t("editor_rooms_help");
+    return undefined;
+  }
+
+  _formChanged(value) {
+    const config = { ...value };
+    config.cleaning_areas = rvdParseCollection("cleaning_areas", value.cleaning_areas_text);
+    config.cleaning_regions = rvdParseCollection("cleaning_regions", value.cleaning_regions_text);
+    delete config.cleaning_areas_text;
+    delete config.cleaning_regions_text;
+    if (!config.language || config.language === "auto") delete config.language;
+    if (!config.name) delete config.name;
+    const entities = Object.fromEntries(Object.entries(value.entities || {}).filter(([, entityId]) => entityId));
+    config.entities = entities;
+    this.config = config;
+    this._emit(config);
+  }
+
+  // Plain-HTML editor for frontends where `ha-form` is unavailable. It renders only when
+  // the config or the vacuum list changes, so typing is never interrupted by state updates.
+  _renderFallback() {
+    const vacuumOptions = Object.keys(this._hass.states).filter((id) => id.startsWith("vacuum.")).sort();
+    const signature = JSON.stringify([this.config, vacuumOptions, rvdLanguage(this._hass, this.config.language)]);
+    if (signature === this._fallbackSignature) return;
+    this._fallbackSignature = signature;
+    const areaLines = rvdCollectionText("cleaning_areas", this.config.cleaning_areas);
+    const regionLines = rvdCollectionText("cleaning_regions", this.config.cleaning_regions);
+    this.shadowRoot.innerHTML = `<style>:host{display:block;padding:8px 0;font-family:system-ui,sans-serif}.editor{display:grid;gap:14px}.group{border:1px solid var(--divider-color,#ddd);border-radius:12px;padding:14px}.group h3{font-size:14px;margin:0 0 12px}.field{display:grid;gap:5px;margin:10px 0}.field span,.help{font-size:12px;color:var(--secondary-text-color)}input,select,textarea{width:100%;padding:10px;border:1px solid var(--divider-color,#ccc);border-radius:8px;background:var(--card-background-color,#fff);color:var(--primary-text-color);box-sizing:border-box}textarea{min-height:92px;resize:vertical;font-family:ui-monospace,monospace;font-size:12px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check{display:flex;align-items:center;gap:7px;font-size:12px}.check input{width:auto}</style><div class="editor"><div class="group"><h3>${rvdEscape(this._t("editor_vacuum"))}</h3><label class="field"><span>${rvdEscape(this._t("editor_vacuum_entity"))}</span><select data-key="entity"><option value="">${rvdEscape(this._t("editor_choose"))}</option>${vacuumOptions.map((id) => `<option value="${rvdEscape(id)}" ${this.config.entity === id ? "selected" : ""}>${rvdEscape(this._hass.states[id].attributes?.friendly_name || id)}</option>`).join("")}</select></label><label class="field"><span>${rvdEscape(this._t("editor_name"))}</span><input data-key="name" value="${rvdEscape(this.config.name || "")}" placeholder="${rvdEscape(this._t("default_name"))}"></label><div class="checks">${[["confirm_actions", this._t("editor_confirm"), true], ["show_map", this._t("editor_show_map"), true], ["show_details", this._t("editor_show_details"), true]].map(([key, label, defaultValue]) => `<label class="check"><input type="checkbox" data-key="${key}" ${(this.config[key] ?? defaultValue) ? "checked" : ""}>${rvdEscape(label)}</label>`).join("")}</div></div><details class="group" open><summary><strong>${rvdEscape(this._t("editor_targeted"))}</strong></summary><p class="help">${rvdEscape(this._t("editor_targeted_help"))}</p><label class="field"><span>${rvdEscape(this._t("editor_rooms"))}</span><textarea data-collection="cleaning_areas" placeholder="${rvdEscape(this._t("editor_rooms_placeholder"))}">${rvdEscape(areaLines)}</textarea></label><label class="field"><span>${rvdEscape(this._t("editor_zones"))}</span><textarea data-collection="cleaning_regions" placeholder="${rvdEscape(this._t("editor_zones_placeholder"))}">${rvdEscape(regionLines)}</textarea></label><label class="field"><span>${rvdEscape(this._t("editor_zone_command"))}</span><input data-key="region_command" value="${rvdEscape(this.config.region_command || "custom_area")}"></label></details><details class="group"><summary><strong>${rvdEscape(this._t("editor_manual"))}</strong></summary><p class="help">${rvdEscape(this._t("editor_manual_help"))}</p>${RVD_EDITOR_FIELDS.map(([key, labelKey]) => `<label class="field"><span>${rvdEscape(this._t(labelKey))}</span><input data-entity-key="${key}" value="${rvdEscape(this.config.entities?.[key] || "")}" placeholder="${rvdEscape(this._t("editor_auto"))}"></label>`).join("")}</details></div>`;
     this.shadowRoot.querySelectorAll("[data-key]").forEach((field) => field.addEventListener("change", () => this._change(field.dataset.key, field.type === "checkbox" ? field.checked : field.value)));
     this.shadowRoot.querySelectorAll("[data-entity-key]").forEach((field) => field.addEventListener("change", () => this._changeEntity(field.dataset.entityKey, field.value)));
-    this.shadowRoot.querySelectorAll("[data-collection]").forEach((field) => field.addEventListener("change", () => this._changeCollection(field.dataset.collection, field.value)));
+    this.shadowRoot.querySelectorAll("[data-collection]").forEach((field) => field.addEventListener("change", () => this._change(field.dataset.collection, rvdParseCollection(field.dataset.collection, field.value))));
   }
 
   _emit(config) {
@@ -660,17 +1363,6 @@ class RobotVacuumDashboardCardEditor extends HTMLElement {
     this.config = { ...this.config, entities };
     this._emit(this.config);
   }
-
-  _changeCollection(key, value) {
-    const items = String(value).split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => {
-      const [name, rawValue, icon] = line.split("|").map((part) => part.trim());
-      return key === "cleaning_areas"
-        ? { name: name || rawValue, id: rawValue, icon: icon || "mdi:floor-plan" }
-        : { name: name || "Zone", coordinates: rawValue, icon: icon || "mdi:vector-rectangle" };
-    }).filter((item) => key === "cleaning_areas" ? item.id : item.coordinates);
-    this.config = { ...this.config, [key]: items };
-    this._emit(this.config);
-  }
 }
 
 if (!customElements.get("robot-vacuum-dashboard-card")) customElements.define("robot-vacuum-dashboard-card", RobotVacuumDashboardCard);
@@ -680,7 +1372,7 @@ window.customCards = window.customCards || [];
 window.customCards.push({
   type: "robot-vacuum-dashboard-card",
   name: "Robot Vacuum Dashboard",
-  description: "Een compleet en samenhangend dashboard voor robotstofzuigers.",
+  description: rvdTranslate(rvdLanguage(), "card_description"),
   preview: true,
   documentationURL: "https://github.com/ju1ced/robot-vacuum-dashboard",
 });

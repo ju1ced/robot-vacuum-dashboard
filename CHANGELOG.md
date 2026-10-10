@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+- Add English and Dutch translations. The card, editor, confirmations and card-picker description follow the Home Assistant profile language and fall back to English.
+- Add an optional `language` option (`en` or `nl`) to override the detected language.
+- Let `scripts/preview.html` take `?lang=en` or `?lang=nl`.
+- Find entities through the entity registry: same device as the vacuum plus the integration's translation key (for example `stats_area`, `total_stats_time`). Statistics now work with the entity names of Home Assistant 2026.9, in any UI language, and after renames. Name matching remains as a fallback.
+- Re-render only when an entity the card shows changes, and never while a dropdown or field has focus. Styles are shared through `adoptedStyleSheets`.
+- Rebuild the editor on Home Assistant's `ha-form` with entity, area and boolean selectors; the plain editor remains as a fallback and no longer loses focus.
+- Read Home Assistant's own room-to-area mapping (`area_mapping`) to show area chips and to link map rooms to areas by segment ID. Show a setup hint when the vacuum supports area cleaning but has no mapping.
+- Format values, options and fan speeds with Home Assistant's formatters, and report failed actions with a Home Assistant notification.
+- Sanitize the map SVG with an allowlist of elements and attributes, and escape every interpolated label.
+- Use Material Design icons, label icon-only controls, expose tabs and switches to assistive technology, and make map rooms keyboard-selectable.
+- Show the device manufacturer in the header instead of a fixed "ECOVACS".
+- Add a `node --test` suite (happy-dom) and run it in CI.
+
 ## 0.6.0
 
 - Render the trusted Home Assistant Ecovacs SVG inline so its native cleaning path, robot and charging station remain independent visual layers.
