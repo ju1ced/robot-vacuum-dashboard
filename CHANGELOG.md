@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add English and Dutch translations. The card, editor, confirmations and card-picker description follow the Home Assistant profile language and fall back to English.
+- Add an optional `language` option (`en` or `nl`) to override the detected language.
+- Let `scripts/preview.html` take `?lang=en` or `?lang=nl`.
+
 ## 0.6.0
 
 - Render the trusted Home Assistant Ecovacs SVG inline so its native cleaning path, robot and charging station remain independent visual layers.
