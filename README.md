@@ -8,6 +8,8 @@ Een complete, responsieve Home Assistant-dashboardkaart voor robotstofzuigers. D
 
 ![Robot Vacuum Dashboard overview](docs/images/dashboard-overview.png)
 
+> **English:** the card follows the language of your Home Assistant profile. It ships with English and Dutch; other languages fall back to English. Set `language: en` or `language: nl` to override.
+
 ## Functies
 
 - Eén kaart met overzicht, alle data en instellingen
@@ -135,6 +137,7 @@ Alle mappings zijn optioneel. Onderhoudswaarden vallen automatisch terug op de `
 | `show_map` | `true` | Toont of verbergt het kaartpaneel |
 | `show_details` | `true` | Toont totalen en onderhoud |
 | `map_render_mode` | `native_svg` | Gebruikt de gelaagde SVG-renderer; `image` forceert de compatibele fallback |
+| `language` | automatisch | Taal van de kaart: `en` of `nl`. Standaard volgt de kaart de taal van het Home Assistant-profiel en valt terug op Engels |
 | `entities` | `{}` | Optionele handmatige entiteitstoewijzingen |
 
 ## Ecovacs-entiteiten activeren
@@ -173,6 +176,10 @@ Zonder de optionele companion-integratie gebruikt de kaart de afgewerkte `image.
 - **Oude kaart na update:** vernieuw de browser volledig en controleer of maar één resource naar `robot-vacuum-dashboard.js` verwijst.
 - **Robot niet gevonden:** controleer of `entity` met `vacuum.` begint.
 - **Commando werkt niet:** test hetzelfde commando eerst via Ontwikkelaarstools → Acties.
+
+## Vertalingen
+
+Alle teksten staan in `RVD_TRANSLATIONS` bovenaan `robot-vacuum-dashboard.js`. Voeg een taal toe met dezelfde sleutels als `en`; `node scripts/check-card.js` controleert dat elke taal alle sleutels heeft.
 
 ## Ontwikkeling
 
