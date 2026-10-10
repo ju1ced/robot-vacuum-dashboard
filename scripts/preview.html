@@ -42,7 +42,28 @@
     const card = document.querySelector("robot-vacuum-dashboard-card");
     const renderer = new URLSearchParams(location.search).get("renderer") === "image" ? "image" : "native_svg";
     card.setConfig({ entity:"vacuum.deebot_n8_plus", name:"DEEBOT N8+", map_render_mode:renderer, cleaning_areas:[{name:"Keuken",id:"kitchen",icon:"mdi:silverware-fork-knife"},{name:"Woonkamer",id:"living_room",icon:"mdi:sofa"},{name:"Hal",id:"hallway",icon:"mdi:coat-rack"}], cleaning_regions:[{name:"Onder eettafel",coordinates:"-1339,-1511,296,-2587",icon:"mdi:table-furniture"}] });
-    card.hass = { states, language: new URLSearchParams(location.search).get("lang") || undefined, areas:{kitchen:{area_id:"kitchen",name:"Keuken"},living_room:{area_id:"living_room",name:"Woonkamer"},hallway:{area_id:"hallway",name:"Inkomhal"}}, hassUrl:(url)=>url, callService:async (...args)=>console.log("service", JSON.stringify(args)) };
+    const registry = (entity_id, translation_key) => ({ entity_id, translation_key, platform:"ecovacs", device_id:"deebot" });
+    const entities = {
+      "vacuum.deebot_n8_plus": registry("vacuum.deebot_n8_plus", "vacuum"),
+      "image.deebot_n8_plus_map": registry("image.deebot_n8_plus_map", "map"),
+      "binary_sensor.deebot_n8_plus_mop_attached": registry("binary_sensor.deebot_n8_plus_mop_attached", "water_mop_attached"),
+      "sensor.deebot_n8_plus_cleaning_cycle_area": registry("sensor.deebot_n8_plus_cleaning_cycle_area", "stats_area"),
+      "sensor.deebot_n8_plus_cleaning_cycle_time": registry("sensor.deebot_n8_plus_cleaning_cycle_time", "stats_time"),
+      "sensor.deebot_n8_plus_total_statistics_cleanings": registry("sensor.deebot_n8_plus_total_statistics_cleanings", "total_stats_cleanings"),
+      "sensor.deebot_n8_plus_total_statistics_area": registry("sensor.deebot_n8_plus_total_statistics_area", "total_stats_area"),
+      "sensor.deebot_n8_plus_total_statistics_time": registry("sensor.deebot_n8_plus_total_statistics_time", "total_stats_time"),
+      "select.deebot_n8_plus_water_level": registry("select.deebot_n8_plus_water_level", "water_amount"),
+      "select.deebot_n8_plus_work_mode": registry("select.deebot_n8_plus_work_mode", "work_mode"),
+      "sensor.map_geometry": { entity_id:"sensor.map_geometry", translation_key:"map_geometry", platform:"ecovacs_map_data", device_id:"deebot" },
+    };
+    const params = new URLSearchParams(location.search);
+    const baseHass = { states, entities, devices:{ deebot:{ id:"deebot", manufacturer:"Ecovacs", model:"DEEBOT N8+" } }, language: params.get("lang") || undefined, callWS: async () => ({ options: { vacuum: { area_mapping: { kitchen:["1"], living_room:["2"], hallway:["3"] } } } }), areas:{kitchen:{area_id:"kitchen",name:"Keuken"},living_room:{area_id:"living_room",name:"Woonkamer"},hallway:{area_id:"hallway",name:"Inkomhal"}}, hassUrl:(url)=>url, callService:async (...args)=>{ console.log("service", JSON.stringify(args)); if (params.get("fail")) throw new Error("preview failure"); } };
+    card.hass = baseHass;
+    // ?churn=1 pushes an unrelated state change every second, like a busy house.
+    if (params.get("churn")) {
+      let tick = 0;
+      setInterval(() => { tick += 1; card.hass = { ...baseHass, states: { ...states, "light.unrelated": state("light.unrelated", tick % 2 ? "on" : "off") } }; }, 1000);
+    }
   </script>
 </body>
 </html>
